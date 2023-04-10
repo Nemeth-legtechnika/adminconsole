@@ -17,8 +17,20 @@ repositories {
 	maven { url = uri("https://repo.spring.io/snapshot") }
 }
 
+ext {
+	set("jakarta-servlet.version", "5.0.0")
+}
+
+configurations {
+	implementation.configure {
+		exclude(module = "spring-boot-starter-tomcat")
+		exclude(group = "org.apache.tomcat")
+	}
+}
+
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-jetty")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
