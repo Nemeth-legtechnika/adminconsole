@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    networks:
+      network:
+        ipv4_address: 172.20.0.2
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: "nemeth"
+      POSTGRES_USER: "nemeth-legtechnika"
+      POSTGRES_PASSWORD: "nemeth-legtechnika"
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      network:
+        ipv4_address: 172.20.0.3
+
+volumes:
+  db_data:
+
+networks:
+  network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16

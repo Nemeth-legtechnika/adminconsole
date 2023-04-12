@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/nemeth
+    username: nemeth-legtechnika
+    password: nemeth-legtechnika
+    validation-query: SELECT 1
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL81Dialect
+        format_sql: true
+        show-sql: true
+    hibernate:
+      ddl-auto: none
