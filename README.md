@@ -19,3 +19,10 @@ Product management console for Németh Légtechnika Kft.
 
 - Label it with `admin` and `feature` or `bug`
 - Assign to yourself
+
+## Actions
+
+### Security Scan:
+
+- Semgrep for scanning the whole projects for security issues
+  - [project](https://semgrep.dev/orgs/nemeth-legtechnika/projects)
