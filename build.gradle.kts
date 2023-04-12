@@ -1,3 +1,4 @@
+import org.gradle.internal.impldep.org.apache.ivy.util.cli.CommandLine
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -17,10 +18,6 @@ repositories {
 	maven { url = uri("https://repo.spring.io/snapshot") }
 }
 
-ext {
-	set("jakarta-servlet.version", "5.0.0")
-}
-
 configurations {
 	implementation.configure {
 		exclude(module = "spring-boot-starter-tomcat")
@@ -31,8 +28,11 @@ configurations {
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-jetty")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("jakarta.servlet:jakarta.servlet-api:5.0.0")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	runtimeOnly("org.postgresql:postgresql")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
