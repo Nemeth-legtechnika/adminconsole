@@ -1,5 +1,5 @@
-import org.gradle.internal.impldep.org.apache.ivy.util.cli.CommandLine
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
 	id("org.springframework.boot") version "3.0.6-SNAPSHOT"
@@ -8,42 +8,63 @@ plugins {
 	kotlin("plugin.spring") version "1.7.22"
 }
 
-group = "com.nemethlegtechnika"
-version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_17
+val jar: Jar by tasks
+val bootJar: BootJar by tasks
 
-repositories {
-	mavenCentral()
-	maven { url = uri("https://repo.spring.io/milestone") }
-	maven { url = uri("https://repo.spring.io/snapshot") }
-}
+bootJar.enabled = false
+jar.enabled = true
 
-configurations {
-	implementation.configure {
-		exclude(module = "spring-boot-starter-tomcat")
-		exclude(group = "org.apache.tomcat")
+allprojects {
+
+	group = "com.nemethlegtechnika"
+	version = "0.0.1-SNAPSHOT"
+
+	apply {
+		plugin("org.springframework.boot")
+		plugin("io.spring.dependency-management")
+		plugin("org.jetbrains.kotlin.jvm")
+		plugin("org.jetbrains.kotlin.plugin.spring")
+	}
+
+	java.sourceCompatibility = JavaVersion.VERSION_17
+
+	repositories {
+		mavenCentral()
+		maven { url = uri("https://repo.spring.io/milestone") }
+		maven { url = uri("https://repo.spring.io/snapshot") }
+		gradlePluginPortal()
+	}
+
+	configurations {
+		implementation.configure {
+			exclude(module = "spring-boot-starter-tomcat")
+			exclude(group = "org.apache.tomcat")
+		}
+	}
+
+	tasks {
+		withType<KotlinCompile> {
+			kotlinOptions {
+				freeCompilerArgs = listOf("-Xjsr305=strict")
+				jvmTarget = "17"
+			}
+		}
+
+		withType<Test> {
+			useJUnitPlatform()
+		}
+	}
+
+	dependencies {
+		implementation("org.springframework.boot:spring-boot-starter-web")
+		implementation("org.springframework.boot:spring-boot-starter-jetty")
+		implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+		implementation("jakarta.servlet:jakarta.servlet-api:5.0.0")
+		implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+		implementation("org.jetbrains.kotlin:kotlin-reflect")
+		developmentOnly("org.springframework.boot:spring-boot-devtools")
+		testImplementation("org.springframework.boot:spring-boot-starter-test")
 	}
 }
 
-dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.boot:spring-boot-starter-jetty")
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("jakarta.servlet:jakarta.servlet-api:5.0.0")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	runtimeOnly("org.postgresql:postgresql")
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-}
 
-tasks.withType<KotlinCompile> {
-	kotlinOptions {
-		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "17"
-	}
-}
-
-tasks.withType<Test> {
-	useJUnitPlatform()
-}
