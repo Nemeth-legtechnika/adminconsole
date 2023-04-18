@@ -1,4 +1,4 @@
-package com.nemethlegtechnika.adminconsole.controller
+package com.nemethlegtechnika.products.controller
 
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping

@@ -6,3 +6,4 @@ pluginManagement {
 	}
 }
 rootProject.name = "adminconsole"
+include("products")
