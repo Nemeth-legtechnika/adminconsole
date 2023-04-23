@@ -7,8 +7,15 @@ spring:
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQL81Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
         show-sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: validate
+  liquibase:
+    url: ${spring.datasource.url}
+    driverClassName: org.postgresql.Driver
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    changeLog: "classpath:db/changelog/changelog-master.yaml"
+    contexts: dev

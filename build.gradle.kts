@@ -1,11 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
+
 plugins {
 	id("org.springframework.boot") version "3.0.6-SNAPSHOT"
 	id("io.spring.dependency-management") version "1.1.0"
+
 	kotlin("jvm") version "1.7.22"
 	kotlin("plugin.spring") version "1.7.22"
+	id("org.jetbrains.kotlin.plugin.allopen") version "1.7.22"
 }
 
 val jar: Jar by tasks
@@ -24,6 +27,8 @@ allprojects {
 		plugin("io.spring.dependency-management")
 		plugin("org.jetbrains.kotlin.jvm")
 		plugin("org.jetbrains.kotlin.plugin.spring")
+		plugin("org.jetbrains.kotlin.plugin.allopen")
+
 	}
 
 	java.sourceCompatibility = JavaVersion.VERSION_17
@@ -39,6 +44,11 @@ allprojects {
 		implementation.configure {
 			exclude(module = "spring-boot-starter-tomcat")
 			exclude(group = "org.apache.tomcat")
+		}
+
+		allOpen {
+			annotation("jakarta.persistence.Entity")
+			annotation("jakarta.persistence.MappedSuperclass")
 		}
 	}
 

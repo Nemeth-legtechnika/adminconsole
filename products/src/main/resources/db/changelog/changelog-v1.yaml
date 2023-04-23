@@ -1,0 +1,195 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1682205823161-1
+      author: nemet (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 50
+            sequenceName: base_entity_seq
+            startValue: 1
+  - changeSet:
+      id: 1682205823161-2
+      author: nemet (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_attribute
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: dtype
+                  type: VARCHAR(31)
+              - column:
+                  name: created_at
+                  type: DATETIME
+              - column:
+                  name: updated_at
+                  type: DATETIME
+              - column:
+                  name: product_id
+                  type: BIGINT
+              - column:
+                  name: group_id
+                  type: BIGINT
+              - column:
+                  name: boolean_value
+                  type: BOOLEAN
+              - column:
+                  name: string_value
+                  type: VARCHAR(255)
+            tableName: attribute
+  - changeSet:
+      id: 1682205823161-3
+      author: nemet (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_company
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: created_at
+                  type: DATETIME
+              - column:
+                  name: updated_at
+                  type: DATETIME
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: discount
+                  type: DOUBLE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: margin
+                  type: DOUBLE
+            tableName: company
+  - changeSet:
+      id: 1682205823161-4
+      author: nemet (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_group
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: created_at
+                  type: DATETIME
+              - column:
+                  name: updated_at
+                  type: DATETIME
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+            tableName: group
+  - changeSet:
+      id: 1682205823161-5
+      author: nemet (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_product
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: created_at
+                  type: DATETIME
+              - column:
+                  name: updated_at
+                  type: DATETIME
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: number
+                  type: VARCHAR(255)
+              - column:
+                  name: type
+                  type: VARCHAR(255)
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: list_price
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: discount
+                  type: DOUBLE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: margin
+                  type: DOUBLE
+              - column:
+                  name: company_id
+                  type: BIGINT
+            tableName: product
+  - changeSet:
+      id: 1682205823161-6
+      author: nemet (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: group_id
+            baseTableName: attribute
+            constraintName: FK_ATTRIBUTE_ON_GROUP
+            referencedColumnNames: id
+            referencedTableName: group
+  - changeSet:
+      id: 1682205823161-7
+      author: nemet (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: product_id
+            baseTableName: attribute
+            constraintName: FK_ATTRIBUTE_ON_PRODUCT
+            referencedColumnNames: id
+            referencedTableName: product
+  - changeSet:
+      id: 1682205823161-8
+      author: nemet (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: company_id
+            baseTableName: product
+            constraintName: FK_PRODUCT_ON_COMPANY
+            referencedColumnNames: id
+            referencedTableName: company
+

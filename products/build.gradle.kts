@@ -1,5 +1,6 @@
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 dependencies {
-	runtimeOnly("org.postgresql:postgresql")
+	implementation("org.liquibase:liquibase-core")
+	implementation("org.postgresql:postgresql")
 }

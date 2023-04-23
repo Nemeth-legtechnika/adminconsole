@@ -4,7 +4,7 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "group")
-open class Group : BaseEntity() {
+class Group : BaseEntity() {
 
     @Column(name = "name")
     val name: String = ""
