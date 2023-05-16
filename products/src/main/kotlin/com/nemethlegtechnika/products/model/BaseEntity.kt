@@ -2,9 +2,8 @@ package com.nemethlegtechnika.products.model
 
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
-import org.hibernate.annotations.DynamicUpdate
 import org.hibernate.annotations.UpdateTimestamp
-import java.util.Date
+import java.util.*
 
 @MappedSuperclass
 abstract class BaseEntity {

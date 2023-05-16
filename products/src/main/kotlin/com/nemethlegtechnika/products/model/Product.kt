@@ -3,8 +3,6 @@ package com.nemethlegtechnika.products.model
 import com.nemethlegtechnika.products.config.Configuration
 import com.nemethlegtechnika.products.util.round
 import jakarta.persistence.*
-import kotlin.math.round
-import kotlin.time.times
 
 @Entity
 @Table(name = "product")
