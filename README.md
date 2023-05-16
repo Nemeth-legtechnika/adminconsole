@@ -15,6 +15,11 @@ Product management console for Németh Légtechnika Kft.
   - Name is a 1-2 word to summarize the task
   - For bugs: `bug/#X-<name>`
 
+### Commits
+
+- Naming: `#X: <description>`
+  - X is the issue number 
+
 ### PR
 
 - Label it with `admin` and `feature` or `bug`
