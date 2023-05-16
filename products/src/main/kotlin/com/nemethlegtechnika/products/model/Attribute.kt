@@ -7,7 +7,7 @@ import org.hibernate.annotations.DiscriminatorFormula
 @Table(name = "attribute")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorFormula("case when stringValues is not null then 'string' else 'boolean' end")
-sealed class Attribute : BaseEntity() {
+abstract class Attribute : BaseEntity() {
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "product_id")
