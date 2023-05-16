@@ -28,7 +28,6 @@ allprojects {
 		plugin("org.jetbrains.kotlin.jvm")
 		plugin("org.jetbrains.kotlin.plugin.spring")
 		plugin("org.jetbrains.kotlin.plugin.allopen")
-
 	}
 
 	java.sourceCompatibility = JavaVersion.VERSION_17
@@ -76,5 +75,3 @@ allprojects {
 		testImplementation("org.springframework.boot:spring-boot-starter-test")
 	}
 }
-
-
