@@ -36,18 +36,18 @@ class Product : BaseEntity() {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = [CascadeType.ALL])
     val attributes: List<Attribute> = listOf()
 
-    val purchasePrice: Long
-        get() {
-            return listPrice.round {
-                val grossPrice = it * Configuration.AFA
-                grossPrice * (1.0 - discount)
-            }
+    @delegate:Transient
+    val purchasePrice: Long by lazy {
+        listPrice.round {
+            val grossPrice = it * Configuration.AFA
+            grossPrice * (1.0 - discount)
         }
+    }
 
-    val sellPrice: Long
-        get() {
-            return purchasePrice.round {
-                it * (1.0 + margin)
-            }
+    @delegate:Transient
+    val sellPrice: Long by lazy {
+        purchasePrice.round {
+            it * (1.0 + margin)
         }
+    }
 }
