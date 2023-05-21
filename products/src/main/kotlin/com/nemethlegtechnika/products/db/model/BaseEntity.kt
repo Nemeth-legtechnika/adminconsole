@@ -1,4 +1,4 @@
-package com.nemethlegtechnika.products.model
+package com.nemethlegtechnika.products.db.model
 
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp

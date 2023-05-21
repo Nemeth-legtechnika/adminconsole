@@ -1,6 +1,6 @@
-package com.nemethlegtechnika.products.model
+package com.nemethlegtechnika.products.db.model
 
-import com.nemethlegtechnika.products.config.Configuration
+import com.nemethlegtechnika.products.logic.config.Configuration
 import com.nemethlegtechnika.products.util.round
 import jakarta.persistence.*
 
