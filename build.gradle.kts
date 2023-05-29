@@ -5,7 +5,7 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 plugins {
 	id("org.springframework.boot") version "3.0.6-SNAPSHOT"
 	id("io.spring.dependency-management") version "1.1.0"
-
+	kotlin("kapt") version "1.7.22" apply false
 	kotlin("jvm") version "1.7.22"
 	kotlin("plugin.spring") version "1.7.22"
 	id("org.jetbrains.kotlin.plugin.allopen") version "1.7.22"
@@ -71,10 +71,10 @@ allprojects {
 		implementation("jakarta.servlet:jakarta.servlet-api:5.0.0")
 		implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 		implementation("org.jetbrains.kotlin:kotlin-reflect")
-		developmentOnly("org.springframework.boot:spring-boot-devtools")
+        developmentOnly("org.springframework.boot:spring-boot-devtools")
 		testImplementation("org.springframework.boot:spring-boot-starter-test") {
 			exclude(group = "org.mockito", module = "mockito-core")
 		}
-		testImplementation("com.ninja-squad:springmockk:4.0.2")
+		testImplementation("io.mockk:mockk:1.13.4")
 	}
 }

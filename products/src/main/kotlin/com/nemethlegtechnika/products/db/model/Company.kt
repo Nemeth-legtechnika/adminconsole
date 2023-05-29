@@ -4,17 +4,16 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "company")
-class Company : BaseEntity() {
-
+class Company (
     @Column(name = "name", nullable = false)
-    val name: String = ""
+    var name: String = "",
 
     @Column(name = "discount", nullable = false)
-    val discount: Double = 0.0
+    var discount: Double = 0.0,
 
     @Column(name = "margin", nullable = false)
-    val margin: Double = 0.0
+    var margin: Double = 0.0,
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    val products: List<Product> = listOf()
-}
+    val products: List<Product> = mutableListOf()
+) : BaseEntity()
