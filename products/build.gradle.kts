@@ -1,5 +1,12 @@
+val mapstructVersion: String by properties
+
+plugins {
+	kotlin("kapt")
+}
+
 dependencies {
 	implementation("org.liquibase:liquibase-core")
 	implementation("org.postgresql:postgresql")
-	implementation("com.ninja-squad:springmockk:4.0.2")
+	implementation("org.mapstruct:mapstruct:$mapstructVersion")
+	kapt("org.mapstruct:mapstruct-processor:$mapstructVersion")
 }
