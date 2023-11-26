@@ -1,14 +1,17 @@
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
+val mockkVersion: String by properties
+val jakartaServletVersion: String by properties
 
 plugins {
-	id("org.springframework.boot") version "3.0.6-SNAPSHOT"
-	id("io.spring.dependency-management") version "1.1.0"
-
-	kotlin("jvm") version "1.7.22"
-	kotlin("plugin.spring") version "1.7.22"
-	id("org.jetbrains.kotlin.plugin.allopen") version "1.7.22"
+	kotlin("kapt")
+	kotlin("jvm")
+	kotlin("plugin.spring")
+	id("org.springframework.boot")
+	id("io.spring.dependency-management")
+	id("org.jetbrains.kotlin.plugin.allopen")
 }
 
 val jar: Jar by tasks
@@ -68,13 +71,16 @@ allprojects {
 		implementation("org.springframework.boot:spring-boot-starter-web")
 		implementation("org.springframework.boot:spring-boot-starter-jetty")
 		implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-		implementation("jakarta.servlet:jakarta.servlet-api:5.0.0")
+		implementation("jakarta.servlet:jakarta.servlet-api:$jakartaServletVersion")
 		implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+		implementation("org.springframework.boot:spring-boot-starter-actuator")
+		implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
 		implementation("org.jetbrains.kotlin:kotlin-reflect")
-		developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+        developmentOnly("org.springframework.boot:spring-boot-devtools")
 		testImplementation("org.springframework.boot:spring-boot-starter-test") {
 			exclude(group = "org.mockito", module = "mockito-core")
 		}
-		testImplementation("com.ninja-squad:springmockk:4.0.2")
+		testImplementation("io.mockk:mockk:$mockkVersion")
 	}
 }
