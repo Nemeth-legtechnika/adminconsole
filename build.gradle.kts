@@ -1,9 +1,7 @@
 
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 val mockkVersion: String by properties
-val jakartaServletVersion: String by properties
 
 plugins {
 	kotlin("kapt")
@@ -13,12 +11,6 @@ plugins {
 	id("io.spring.dependency-management")
 	id("org.jetbrains.kotlin.plugin.allopen")
 }
-
-val jar: Jar by tasks
-val bootJar: BootJar by tasks
-
-bootJar.enabled = false
-jar.enabled = true
 
 allprojects {
 
@@ -71,12 +63,10 @@ allprojects {
 		implementation("org.springframework.boot:spring-boot-starter-web")
 		implementation("org.springframework.boot:spring-boot-starter-jetty")
 		implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-		implementation("jakarta.servlet:jakarta.servlet-api:$jakartaServletVersion")
 		implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 		implementation("org.springframework.boot:spring-boot-starter-actuator")
 		implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
 		implementation("org.jetbrains.kotlin:kotlin-reflect")
-
         developmentOnly("org.springframework.boot:spring-boot-devtools")
 		testImplementation("org.springframework.boot:spring-boot-starter-test") {
 			exclude(group = "org.mockito", module = "mockito-core")
