@@ -2,10 +2,21 @@ package com.nemethlegtechnika.products.model
 
 import com.nemethlegtechnika.products.config.Configuration
 import com.nemethlegtechnika.products.util.round
-import jakarta.persistence.*
+import jakarta.persistence.CascadeType
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
+import jakarta.persistence.OneToOne
+import jakarta.persistence.Table
+import jakarta.persistence.Transient
+import jakarta.persistence.UniqueConstraint
 
 @Entity
-@Table(name = "product")
+@Table(name = "product", uniqueConstraints = [
+    UniqueConstraint(columnNames = ["number", "company_id"])
+])
 class Product : BaseEntity() {
 
     @Column(name = "name", nullable = false)
@@ -33,8 +44,8 @@ class Product : BaseEntity() {
     @JoinColumn(name = "company_id")
     val company: Company? = null
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = [CascadeType.ALL])
-    val attributes: List<Attribute> = listOf()
+    @OneToOne(mappedBy = "product", cascade = [CascadeType.ALL])
+    val attributes: GroupTag? = null
 
     @delegate:Transient
     val purchasePrice: Long by lazy {

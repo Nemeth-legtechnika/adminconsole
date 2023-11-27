@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1701037613588-1
+      author: Nemeth Botond
+      labels: sequence
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 50
+            sequenceName: base_entity_seq
+            startValue: 1
+
