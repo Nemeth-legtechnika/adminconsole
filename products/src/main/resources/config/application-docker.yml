@@ -1,9 +1,14 @@
+server:
+  port: 8080
+
 spring:
+  config:
+    activate:
+      on-profile: docker
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/nemeth
-    username: nemeth-legtechnika
-    password: nemeth-legtechnika
-    validation-query: SELECT 1
+    url: ${DOCKER_DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
   jpa:
     properties:
       hibernate:
@@ -18,4 +23,3 @@ spring:
     user: ${spring.datasource.username}
     password: ${spring.datasource.password}
     changeLog: "classpath:db/changelog/changelog-master.yaml"
-    contexts: dev

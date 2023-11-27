@@ -3,14 +3,19 @@ version: '3.9'
 services:
   backend:
     build: ./products
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DOCKER_DB_URL: ${DOCKER_DB_URL}
     ports:
       - "8080:8080"
   db:
     image: postgres:latest
     environment:
-      POSTGRES_DB: "nemeth"
-      POSTGRES_USER: "nemeth-legtechnika"
-      POSTGRES_PASSWORD: "nemeth-legtechnika"
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     security_opt:
       - no-new-privileges:true
     read_only: true

@@ -1,5 +1,23 @@
 server:
   port: 8080
+
+
 spring:
-  config:
-    import: database-dev.yml
+  datasource:
+    url: ${DEV_DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        show-sql: true
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    url: ${spring.datasource.url}
+    driverClassName: org.postgresql.Driver
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    changeLog: "classpath:db/changelog/changelog-master.yaml"
