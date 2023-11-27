@@ -1,0 +1,68 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1701037613588-7
+      author: Nemeth Botond
+      labels: unique-constraint
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: number
+            constraintName: uc_96d8ed23c70f1404f60c3758d
+            tableName: product
+  - changeSet:
+      id: 1701037613588-8
+      author: Nemeth Botond
+      labels: unique-constraint
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: product_id
+            constraintName: uc_group_tag_product
+            tableName: group_tag
+  - changeSet:
+      id: 1701037613588-9
+      author: Nemeth Botond
+      labels: unique-constraint
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: name
+            constraintName: uc_price_property_name
+            tableName: price_property
+  - changeSet:
+      id: 1701037613588-10
+      author: Nemeth Botond
+      labels: foreignkey-constraint
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: group_id
+            baseTableName: group_tag
+            constraintName: FK_GROUP_TAG_ON_GROUP
+            referencedColumnNames: id
+            referencedTableName: product_group
+  - changeSet:
+      id: 1701037613588-11
+      author: Nemeth Botond
+      labels: foreignkey-constraint
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: product_id
+            baseTableName: group_tag
+            constraintName: FK_GROUP_TAG_ON_PRODUCT
+            referencedColumnNames: id
+            referencedTableName: product
+  - changeSet:
+      id: 1701037613588-12
+      author: Nemeth Botond
+      labels: foreignkey-constraint
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: company_id
+            baseTableName: product
+            constraintName: FK_PRODUCT_ON_COMPANY
+            referencedColumnNames: id
+            referencedTableName: company
+

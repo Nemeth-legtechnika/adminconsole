@@ -5,6 +5,12 @@
       <database-info>
         <option name="enabled" value="true" />
         <dbms-id>postgres</dbms-id>
+        <mapping-types>
+          <mapping-type sql-type-parameter="Nothing">
+            <java-class>kotlin.Lazy</java-class>
+            <sql-type>int</sql-type>
+          </mapping-type>
+        </mapping-types>
       </database-info>
     </database-infos>
   </component>
