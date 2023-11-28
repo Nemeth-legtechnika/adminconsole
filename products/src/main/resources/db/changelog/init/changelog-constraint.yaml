@@ -20,15 +20,25 @@ databaseChangeLog:
             constraintName: uc_group_tag_product
             tableName: group_tag
   - changeSet:
-      id: 1701037613588-9
-      author: Nemeth Botond
-      labels: unique-constraint
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - addUniqueConstraint:
-            columnNames: name
-            constraintName: uc_price_property_name
-            tableName: price_property
+        id: 1701093747850-2
+        author: Nemeth Botond
+        labels: unique-constraint
+        objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+        changes:
+            - addUniqueConstraint:
+                  columnNames: number, company_id
+                  constraintName: uc_bdcc248928f1c86a4416e97d6
+                  tableName: product
+  - changeSet:
+        id: 1701093747850-3
+        author: Nemeth Botond
+        labels: unique-constraint
+        objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+        changes:
+            - addUniqueConstraint:
+                  columnNames: name
+                  constraintName: uc_custom_property_name
+                  tableName: custom_property
   - changeSet:
       id: 1701037613588-10
       author: Nemeth Botond

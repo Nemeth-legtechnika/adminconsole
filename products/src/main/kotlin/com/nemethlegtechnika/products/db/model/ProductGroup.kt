@@ -1,4 +1,4 @@
-package com.nemethlegtechnika.products.model
+package com.nemethlegtechnika.products.db.model
 
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column

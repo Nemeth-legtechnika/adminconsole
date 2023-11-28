@@ -11,7 +11,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: pk_price_property
+                    primaryKeyName: pk_custom_property
                   name: id
                   type: BIGINT
               - column:
@@ -29,6 +29,11 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                   name: value
-                  type: DOUBLE
-            tableName: price_property
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: type
+                  type: SMALLINT
+            tableName: custom_property
 

@@ -1,6 +1,6 @@
-package com.nemethlegtechnika.products.model
+package com.nemethlegtechnika.products.db.model
 
-import com.nemethlegtechnika.products.config.Configuration
+import com.nemethlegtechnika.products.service.Properties
 import com.nemethlegtechnika.products.util.round
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
@@ -50,7 +50,7 @@ class Product : BaseEntity() {
     @delegate:Transient
     val purchasePrice: Long by lazy {
         listPrice.round {
-            val grossPrice = it * Configuration.AFA
+            val grossPrice = it * Properties.AFA
             grossPrice * (1.0 - discount)
         }
     }
