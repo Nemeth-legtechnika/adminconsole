@@ -4,6 +4,7 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 val mockkVersion: String by properties
 val dotenvVersion: String by properties
+val kotlinLoggerVersion: String by properties
 
 plugins {
 	kotlin("kapt")
@@ -75,6 +76,7 @@ allprojects {
 		implementation("org.springframework.boot:spring-boot-starter-actuator")
 		implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
 		implementation("org.jetbrains.kotlin:kotlin-reflect")
+		implementation("io.github.oshai:kotlin-logging-jvm:$kotlinLoggerVersion")
 		implementation("me.paulschwarz:spring-dotenv:$dotenvVersion")
         developmentOnly("org.springframework.boot:spring-boot-devtools")
 		testImplementation("org.springframework.boot:spring-boot-starter-test") {

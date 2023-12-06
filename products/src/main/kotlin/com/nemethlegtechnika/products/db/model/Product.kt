@@ -1,16 +1,15 @@
 package com.nemethlegtechnika.products.db.model
 
-import com.nemethlegtechnika.products.service.Properties
 import com.nemethlegtechnika.products.util.round
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.JoinColumn
+import jakarta.persistence.JoinTable
+import jakarta.persistence.ManyToMany
 import jakarta.persistence.ManyToOne
-import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
-import jakarta.persistence.Transient
 import jakarta.persistence.UniqueConstraint
 
 @Entity
@@ -20,45 +19,49 @@ import jakarta.persistence.UniqueConstraint
 class Product : BaseEntity() {
 
     @Column(name = "name", nullable = false)
-    val name: String = ""
+    var name: String? = null
 
     @Column(name = "number", nullable = false)
-    val number: String = ""
-
-    @Column(name = "type", nullable = true)
-    val type: String = ""
+    var number: String? = null
 
     @Column(name = "description", nullable = true)
-    val description: String = ""
+    var description: String? = null
 
     @Column(name = "list_price", nullable = false)
-    val listPrice: Long = 0
+    var listPrice: Long? = null
 
     @Column(name = "discount", nullable = false)
-    val discount: Double = 0.0
+    var discount: Double? = null
 
     @Column(name = "margin", nullable = false)
-    val margin: Double = 0.0
+    var margin: Double? = null
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "company_id")
-    val company: Company? = null
+    var company: Company? = null
 
-    @OneToOne(mappedBy = "product", cascade = [CascadeType.ALL])
-    val attributes: GroupTag? = null
+    @ManyToMany(fetch = FetchType.EAGER, cascade = [CascadeType.PERSIST])
+    @JoinTable(
+        name = "product_tag",
+        joinColumns = [JoinColumn(name = "product_id")],
+        inverseJoinColumns = [JoinColumn(name = "tag_id")]
+    )
+    var tags: MutableList<Tag> = mutableListOf()
 
-    @delegate:Transient
-    val purchasePrice: Long by lazy {
-        listPrice.round {
-            val grossPrice = it * Properties.AFA
-            grossPrice * (1.0 - discount)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "group_id", nullable = false)
+    var group: ProductGroup? = null
+
+    fun purchasePrice(afa: CustomProperty): Long? {
+        return listPrice?.round {
+            val grossPrice = it * afa.value<Double>()
+            grossPrice * (1.0 - (discount ?: 0.0))
         }
     }
 
-    @delegate:Transient
-    val sellPrice: Long by lazy {
-        purchasePrice.round {
-            it * (1.0 + margin)
+    fun sellPrice(afa: CustomProperty): Long? {
+        return purchasePrice(afa)?.round {
+            it * (1.0 + (margin ?: 0.0))
         }
     }
 }

@@ -1,78 +1,102 @@
 databaseChangeLog:
-  - changeSet:
-      id: 1701037613588-7
-      author: Nemeth Botond
-      labels: unique-constraint
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - addUniqueConstraint:
-            columnNames: number
-            constraintName: uc_96d8ed23c70f1404f60c3758d
-            tableName: product
-  - changeSet:
-      id: 1701037613588-8
-      author: Nemeth Botond
-      labels: unique-constraint
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - addUniqueConstraint:
-            columnNames: product_id
-            constraintName: uc_group_tag_product
-            tableName: group_tag
-  - changeSet:
-        id: 1701093747850-2
-        author: Nemeth Botond
-        labels: unique-constraint
-        objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-        changes:
-            - addUniqueConstraint:
-                  columnNames: number, company_id
-                  constraintName: uc_bdcc248928f1c86a4416e97d6
-                  tableName: product
-  - changeSet:
-        id: 1701093747850-3
-        author: Nemeth Botond
-        labels: unique-constraint
-        objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-        changes:
-            - addUniqueConstraint:
-                  columnNames: name
-                  constraintName: uc_custom_property_name
-                  tableName: custom_property
-  - changeSet:
-      id: 1701037613588-10
-      author: Nemeth Botond
-      labels: foreignkey-constraint
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - addForeignKeyConstraint:
-            baseColumnNames: group_id
-            baseTableName: group_tag
-            constraintName: FK_GROUP_TAG_ON_GROUP
-            referencedColumnNames: id
-            referencedTableName: product_group
-  - changeSet:
-      id: 1701037613588-11
-      author: Nemeth Botond
-      labels: foreignkey-constraint
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - addForeignKeyConstraint:
-            baseColumnNames: product_id
-            baseTableName: group_tag
-            constraintName: FK_GROUP_TAG_ON_PRODUCT
-            referencedColumnNames: id
-            referencedTableName: product
-  - changeSet:
-      id: 1701037613588-12
-      author: Nemeth Botond
-      labels: foreignkey-constraint
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - addForeignKeyConstraint:
-            baseColumnNames: company_id
-            baseTableName: product
-            constraintName: FK_PRODUCT_ON_COMPANY
-            referencedColumnNames: id
-            referencedTableName: company
+    - changeSet:
+          id: 1701957339276-8
+          author: Nemeth Botond
+          labels: unique-constraint
+          objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+          changes:
+              - addUniqueConstraint:
+                    columnNames: name, company_id
+                    constraintName: uc_4d9629005954996bec3ada0d4
+                    tableName: product_group
+    - changeSet:
+          id: 1701957339276-9
+          author: Nemeth Botond
+          labels: unique-constraint
+          objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+          changes:
+              - addUniqueConstraint:
+                    columnNames: number, company_id
+                    constraintName: uc_bdcc248928f1c86a4416e97d6
+                    tableName: product
+    - changeSet:
+          id: 1701957339276-10
+          author: Nemeth Botond
+          labels: unique-constraint
+          objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+          changes:
+              - addUniqueConstraint:
+                    columnNames: name
+                    constraintName: uc_company_name
+                    tableName: company
+    - changeSet:
+          id: 1701957339276-11
+          author: Nemeth Botond
+          labels: unique-constraint
+          objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+          changes:
+              - addUniqueConstraint:
+                    columnNames: name
+                    constraintName: uc_custom_property_name
+                    tableName: custom_property
+    - changeSet:
+          id: 1701957339276-12
+          author: Nemeth Botond
+          labels: foreignkey-constraint
+          objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+          changes:
+              - addForeignKeyConstraint:
+                    baseColumnNames: company_id
+                    baseTableName: product_group
+                    constraintName: FK_PRODUCT_GROUP_ON_COMPANY
+                    referencedColumnNames: id
+                    referencedTableName: company
+    - changeSet:
+          id: 1701957339276-13
+          author: Nemeth Botond
+          labels: foreignkey-constraint
+          objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+          changes:
+              - addForeignKeyConstraint:
+                    baseColumnNames: company_id
+                    baseTableName: product
+                    constraintName: FK_PRODUCT_ON_COMPANY
+                    referencedColumnNames: id
+                    referencedTableName: company
+    - changeSet:
+          id: 1701957339276-14
+          author: Nemeth Botond
+          labels: foreignkey-constraint
+          objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+          changes:
+              - addForeignKeyConstraint:
+                    baseColumnNames: group_id
+                    baseTableName: product
+                    constraintName: FK_PRODUCT_ON_GROUP
+                    referencedColumnNames: id
+                    referencedTableName: product_group
+    - changeSet:
+          id: 1701957339276-15
+          author: Nemeth Botond
+          labels: foreignkey-constraint
+          objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+          changes:
+              - addForeignKeyConstraint:
+                    baseColumnNames: product_id
+                    baseTableName: product_tag
+                    constraintName: fk_protag_on_product
+                    referencedColumnNames: id
+                    referencedTableName: product
+    - changeSet:
+          id: 1701957339276-16
+          author: Nemeth Botond
+          labels: foreignkey-constraint
+          objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+          changes:
+              - addForeignKeyConstraint:
+                    baseColumnNames: tag_id
+                    baseTableName: product_tag
+                    constraintName: fk_protag_on_tag
+                    referencedColumnNames: id
+                    referencedTableName: tag
 

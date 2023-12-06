@@ -1,20 +1,28 @@
 package com.nemethlegtechnika.products.db.model
 
-import jakarta.persistence.*
+import jakarta.persistence.CascadeType
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
+import jakarta.persistence.OneToMany
+import jakarta.persistence.Table
 
 @Entity
 @Table(name = "company")
 class Company : BaseEntity() {
 
-    @Column(name = "name", nullable = false)
-    val name: String = ""
+    @Column(name = "name", nullable = false, unique = true)
+    var name: String? = null
 
     @Column(name = "discount", nullable = false)
-    val discount: Double = 0.0
+    var discount: Double? = null
 
     @Column(name = "margin", nullable = false)
-    val margin: Double = 0.0
+    var margin: Double? = null
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    val products: List<Product> = listOf()
+    val products: MutableList<Product> = mutableListOf()
+
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    val groups: MutableList<ProductGroup> = mutableListOf()
 }

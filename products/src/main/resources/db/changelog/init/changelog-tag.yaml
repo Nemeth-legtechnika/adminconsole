@@ -11,7 +11,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: pk_group_tag
+                    primaryKeyName: pk_tag
                   name: id
                   type: BIGINT
               - column:
@@ -26,15 +26,5 @@ databaseChangeLog:
               - column:
                   name: color
                   type: VARCHAR(7)
-              - column:
-                  constraints:
-                    nullable: false
-                  name: product_id
-                  type: BIGINT
-              - column:
-                  constraints:
-                    nullable: false
-                  name: group_id
-                  type: BIGINT
-            tableName: group_tag
+            tableName: tag
 

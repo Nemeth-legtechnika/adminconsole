@@ -1,6 +1,6 @@
 package com.nemethlegtechnika.products.db.model
 
-import com.nemethlegtechnika.products.exception.AdminConsoleBackendException
+import com.nemethlegtechnika.products.exception.BackendException
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
@@ -28,7 +28,7 @@ class CustomProperty : BaseEntity() {
             Double::class -> value.toDouble() as T
             Int::class -> value.toInt() as T
             String::class -> value as T
-            else -> throw AdminConsoleBackendException.typeNotSupported<CustomProperty>(T::class.simpleName)
+            else -> throw BackendException.typeNotSupported<CustomProperty>(T::class.simpleName)
         }
     }
 }
