@@ -6,9 +6,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 import java.net.URI
 
 abstract class BaseController {
-    protected fun <T: BaseEntity, S> T?.response(mapping: (T) -> S): ResponseEntity<S> {
+    protected fun <T> T?.response(): ResponseEntity<T> {
         return this?.let {
-            ResponseEntity.ok(mapping(this))
+            ResponseEntity.ok(this)
         } ?: ResponseEntity.notFound().build()
     }
 

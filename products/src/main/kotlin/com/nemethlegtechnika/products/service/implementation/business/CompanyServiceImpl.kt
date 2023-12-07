@@ -1,4 +1,4 @@
-package com.nemethlegtechnika.products.service.implementation
+package com.nemethlegtechnika.products.service.implementation.business
 
 import com.nemethlegtechnika.products.db.model.Company
 import com.nemethlegtechnika.products.db.model.Company_
@@ -29,7 +29,7 @@ class CompanyServiceImpl(
     @Transactional(isolation = Isolation.SERIALIZABLE)
     override fun create(company: Company): Company {
         val result = companyRepository.saveAndFlush(company)
-        groupService.createDefaultGroup(result.name!!)
+        groupService.createDefaultGroup(result)
         return result
     }
 

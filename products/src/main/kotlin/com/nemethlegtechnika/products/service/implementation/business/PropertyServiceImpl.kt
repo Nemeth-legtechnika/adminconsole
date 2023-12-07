@@ -1,4 +1,4 @@
-package com.nemethlegtechnika.products.service.implementation
+package com.nemethlegtechnika.products.service.implementation.business
 
 import com.nemethlegtechnika.products.db.model.CustomProperty
 import com.nemethlegtechnika.products.db.repository.CustomPropertyRepository

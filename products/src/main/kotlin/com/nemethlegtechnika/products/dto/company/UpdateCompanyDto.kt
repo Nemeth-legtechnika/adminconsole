@@ -11,7 +11,7 @@ import java.io.Serializable
  */
 data class UpdateCompanyDto @Default constructor(
     @field:NotNull val id: Long? = null,
-    @field:NotEmpty val name: String = "",
+    @field:NotEmpty val name: String? = null,
     @field:PositiveOrZero val discount: Double? = null,
     @field:PositiveOrZero val margin: Double? = null,
 ) : Serializable

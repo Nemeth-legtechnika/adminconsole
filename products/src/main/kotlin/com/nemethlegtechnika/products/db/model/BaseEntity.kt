@@ -1,6 +1,11 @@
 package com.nemethlegtechnika.products.db.model
 
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.MappedSuperclass
+import jakarta.persistence.SequenceGenerator
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.util.*
@@ -11,7 +16,7 @@ abstract class BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "base_entity_seq")
     @SequenceGenerator(name = "base_entity_seq")
     @Column(name = "id", nullable = false)
-    val id: Long? = null
+    var id: Long? = null
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

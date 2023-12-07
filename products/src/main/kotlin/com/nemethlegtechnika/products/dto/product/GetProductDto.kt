@@ -19,6 +19,6 @@ data class GetProductDto @Default constructor(
     val discount: Double? = null,
     val margin: Double? = null,
     val companyName: String? = null,
-    val tag: GetTagDto? = null,
+    val tags: List<GetTagDto> = emptyList(),
     val groupName: String? = null
 ) : Serializable

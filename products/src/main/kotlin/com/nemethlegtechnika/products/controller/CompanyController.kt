@@ -5,8 +5,12 @@ import com.nemethlegtechnika.products.dto.company.GetCompanyDto
 import com.nemethlegtechnika.products.dto.company.GetCompanyProductDto
 import com.nemethlegtechnika.products.dto.company.UpdateCompanyDto
 import com.nemethlegtechnika.products.mapper.CompanyMapper
+import com.nemethlegtechnika.products.service.implementation.endpoint.CompanyServiceProxy
+import com.nemethlegtechnika.products.service.implementation.endpoint.proxyProxy
 import com.nemethlegtechnika.products.service.interfaces.CompanyService
+import com.nemethlegtechnika.products.service.interfaces.proxy
 import jakarta.validation.Valid
+import org.mapstruct.Qualifier
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -20,42 +24,40 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/company")
 class CompanyController(
-    private val companyService: CompanyService,
     private val companyMapper: CompanyMapper,
+    private val proxy: CompanyServiceProxy
 ): BaseController() {
+
     @GetMapping
-    fun getAll(): ResponseEntity<List<GetCompanyDto>> =
-        ResponseEntity.ok(companyService.getAll().map { companyMapper.map(it) })
+    fun getAll(): ResponseEntity<List<GetCompanyDto>> = ResponseEntity.ok(proxy.getAll())
 
     @GetMapping("{companyName}/products")
     fun getProducts(@PathVariable companyName: String): ResponseEntity<GetCompanyProductDto> {
-        return companyService.get(companyName).response { companyMapper.mapWithProduct(it) }
+        return proxy.get(companyName).response()
     }
 
-    @GetMapping("/{id}")
-    fun get(@PathVariable id: Long): ResponseEntity<GetCompanyDto> =
-        companyService.get(id).response { companyMapper.map(it) }
+    @GetMapping("/id/{id}")
+    fun get(@PathVariable id: Long): ResponseEntity<GetCompanyDto> = proxy.get(id).response()
 
     @GetMapping("/{name}")
-    fun get(@PathVariable name: String): ResponseEntity<GetCompanyDto> =
-        companyService.get(name).response { companyMapper.map(it) }
+    fun get(@PathVariable name: String): ResponseEntity<GetCompanyDto> = proxy.get(name).response()
 
     @PostMapping
     fun create(@Valid @RequestBody dto: CreateCompanyDto): ResponseEntity<Unit> {
         val company = companyMapper.map(dto)
-        val id = companyService.create(company).id!!
+        val id = proxy.create(company).id!!
         return created(id)
     }
 
     @PutMapping
     fun update(@Valid @RequestBody dto: UpdateCompanyDto): ResponseEntity<GetCompanyDto> {
         val company = companyMapper.map(dto)
-        return companyService.update(company).response { companyMapper.map(it) }
+        return proxy.update(company).response()
     }
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: Long): ResponseEntity<Unit> {
-        companyService.delete(id)
+        proxy.delete(id)
         return ResponseEntity.noContent().build<Unit>()
     }
 

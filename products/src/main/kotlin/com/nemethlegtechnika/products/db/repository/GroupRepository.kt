@@ -22,6 +22,9 @@ interface GroupRepository: JpaRepository<ProductGroup, Long> {
     @Query("select g from ProductGroup g where g.name = 'Default' and g.company.name = :companyName")
     fun findDefaultGroup(companyName: String): Optional<ProductGroup>
 
+    @Query("select g from ProductGroup g where g.name = 'Default' and g.company.id = :id")
+    fun findDefaultGroup(id: Long): Optional<ProductGroup>
+
     @Query("""
         select case when count(g) > 0 then true else false end 
         from ProductGroup g 

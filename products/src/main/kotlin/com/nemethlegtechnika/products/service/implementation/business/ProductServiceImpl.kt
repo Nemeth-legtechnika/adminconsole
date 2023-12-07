@@ -1,4 +1,4 @@
-package com.nemethlegtechnika.products.service.implementation
+package com.nemethlegtechnika.products.service.implementation.business
 
 import com.nemethlegtechnika.products.db.model.Product
 import com.nemethlegtechnika.products.db.repository.ProductRepository
@@ -9,6 +9,7 @@ import com.nemethlegtechnika.products.service.interfaces.ProductService
 import com.nemethlegtechnika.products.service.interfaces.TagService
 import com.nemethlegtechnika.products.util.findByIdOrThrow
 import com.nemethlegtechnika.products.util.update
+import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
@@ -16,8 +17,10 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class ProductServiceImpl(
     private val productRepository: ProductRepository,
-    private val companyService: CompanyService,
     private val tagService: TagService,
+    @Lazy
+    private val companyService: CompanyService,
+    @Lazy
     private val groupService: GroupService,
 ) : ProductService {
     @Transactional(isolation = Isolation.READ_COMMITTED, readOnly = true)
@@ -27,15 +30,18 @@ class ProductServiceImpl(
     override fun getAll(): List<Product> = productRepository.findAll()
 
     @Transactional(isolation = Isolation.READ_COMMITTED, readOnly = true)
+    override fun getAll(productIds: List<Long>): List<Product> = productRepository.findAllByIdIn(productIds)
+
+    @Transactional(isolation = Isolation.READ_COMMITTED, readOnly = true)
     override fun get(id: Long) = productRepository.findByIdOrThrow(id)
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     override fun create(companyName: String, product: Product): Product {
         val company = companyService.get(companyName)
-        val defaultGroup = groupService.getDefaultGroup(companyName)
+        val defaultGroup = groupService.getDefaultGroup(company)
         product.apply {
-            this.discount = this.discount ?: company?.discount
-            this.margin = this.margin ?: company?.margin
+            this.discount = this.discount ?: company.discount
+            this.margin = this.margin ?: company.margin
             this.company = company
             this.group = defaultGroup
         }

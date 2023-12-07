@@ -4,7 +4,7 @@ import com.nemethlegtechnika.products.dto.tag.CreateTagDto
 import com.nemethlegtechnika.products.dto.tag.GetTagDto
 import com.nemethlegtechnika.products.dto.tag.UpdateTagDto
 import com.nemethlegtechnika.products.mapper.TagMapper
-import com.nemethlegtechnika.products.service.interfaces.TagService
+import com.nemethlegtechnika.products.service.implementation.endpoint.TagServiceProxy
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -19,15 +19,15 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("api/tag")
 class TagController(
-    private val tagService: TagService,
-    private val tagMapper: TagMapper
+    private val tagMapper: TagMapper,
+    private val tagService: TagServiceProxy
 ) : BaseController() {
 
     @GetMapping
-    fun getAll() = ResponseEntity.ok(tagService.getAll().map { tagMapper.map(it) })
+    fun getAll() = ResponseEntity.ok(tagService.getAll())
 
     @GetMapping("/{id}")
-    fun get(@PathVariable id: Long) = tagService.get(id).response { tagMapper.map(it) }
+    fun get(@PathVariable id: Long) = tagService.get(id).response()
 
     @PostMapping
     fun create(@Valid @RequestBody dto: CreateTagDto): ResponseEntity<Unit> {
@@ -39,7 +39,7 @@ class TagController(
     @PutMapping
     fun update(@Valid @RequestBody dto: UpdateTagDto): ResponseEntity<GetTagDto> {
         val tag = tagMapper.map(dto)
-        return tagService.update(tag).response { tagMapper.map(it) }
+        return tagService.update(tag).response()
     }
 
     @DeleteMapping("/{id}")
