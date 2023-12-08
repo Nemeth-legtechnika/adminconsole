@@ -31,9 +31,6 @@ databaseChangeLog:
                   name: number
                   type: VARCHAR(255)
               - column:
-                  name: type
-                  type: VARCHAR(255)
-              - column:
                   name: description
                   type: VARCHAR(255)
               - column:
@@ -57,10 +54,9 @@ databaseChangeLog:
                   name: company_id
                   type: BIGINT
               - column:
-                  name: purchase_price$delegate
-                  type: int
-              - column:
-                  name: sell_price$delegate
-                  type: int
+                  constraints:
+                    nullable: false
+                  name: group_id
+                  type: BIGINT
             tableName: product
 

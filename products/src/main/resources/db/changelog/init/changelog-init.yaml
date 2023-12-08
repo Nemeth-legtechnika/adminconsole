@@ -4,11 +4,13 @@ databaseChangeLog:
   - include:
       file: db/changelog/init/changelog-group.yaml
   - include:
-      file: db/changelog/init/changelog-product.yaml
-  - include:
       file: db/changelog/init/changelog-property.yaml
   - include:
+      file: db/changelog/init/changelog-product.yaml
+  - include:
       file: db/changelog/init/changelog-tag.yaml
+  - include:
+      file: db/changelog/init/changelog-tag-product.yaml
   - include:
       file: db/changelog/init/changelog-sequence.yaml
   - include:
