@@ -5,6 +5,8 @@ spring:
   config:
     activate:
       on-profile: docker
+  banner:
+    location: "classpath:/banner/banner.txt"
   datasource:
     url: ${DOCKER_DB_URL}
     username: ${DB_USER}

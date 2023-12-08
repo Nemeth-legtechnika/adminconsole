@@ -5,6 +5,7 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 val mockkVersion: String by properties
 val dotenvVersion: String by properties
 val kotlinLoggerVersion: String by properties
+val antlrVersion: String by properties
 
 plugins {
 	kotlin("kapt")
@@ -70,6 +71,7 @@ allprojects {
 
 	dependencies {
 		implementation("org.springframework.boot:spring-boot-starter-web")
+		implementation("org.antlr:antlr4-runtime:$antlrVersion")
 		implementation("org.springframework.boot:spring-boot-starter-jetty")
 		implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 		implementation("org.springframework.boot:spring-boot-starter-validation")

@@ -6,6 +6,8 @@ spring:
   config:
     activate:
       on-profile: development
+  banner:
+    location: "classpath:/banner/banner-dev.txt"
   datasource:
     url: ${DEV_DB_URL}
     username: ${DB_USER}
