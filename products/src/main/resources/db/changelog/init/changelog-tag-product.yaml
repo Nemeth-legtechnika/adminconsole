@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1701957339276-6
+      author: Nemeth Botond
+      labels: scheme
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: product_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: tag_id
+                  type: BIGINT
+            tableName: product_tag

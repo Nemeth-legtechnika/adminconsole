@@ -21,7 +21,14 @@ databaseChangeLog:
                   name: updated_at
                   type: DATETIME
               - column:
+                  constraints:
+                    nullable: false
                   name: name
                   type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: company_id
+                  type: BIGINT
             tableName: product_group
 
