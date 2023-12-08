@@ -61,14 +61,25 @@ class GroupServiceImpl(
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     override fun create(group: ProductGroup): ProductGroup {
-        group.products
-            .all { it.company?.name == group.company?.name }
-            .also { if (it) throw BackendException("Company of products in group with id: ${group.id} has to be ${group.company?.name}") }
-        return groupRepository.saveAndFlush(group)
+        val ids = group.products.map { it.id!! }
+        val products = productService.getAll(ids)
+        products.all { it.company?.name == group.company?.name }
+            .also {
+                if (!it) throw BackendException("All product's company in group ${group.name} has to be ${group.company?.name}")
+            }
+
+        products.forEach {
+            it.group = group
+        }
+
+        val result = groupRepository.saveAndFlush(group)
+        productService.update(products)
+        return result
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     override fun update(group: ProductGroup): ProductGroup {
+        checkDefaultGroup(group.id!!)
         return groupRepository.update(group.id) {
             this.name = group.name ?: this.name
         }
@@ -76,6 +87,7 @@ class GroupServiceImpl(
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     override fun addProduct(productId: Long, groupId: Long): ProductGroup {
+        checkDefaultGroup(groupId)
         val product = productService.get(productId)
         val group = get(groupId)
         group.products.add(product)
@@ -84,6 +96,7 @@ class GroupServiceImpl(
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     override fun removeProduct(productId: Long, groupId: Long): ProductGroup {
+        checkDefaultGroup(groupId)
         val product = productService.get(productId)
         val group = get(groupId)
         group.products.remove(product)
@@ -94,10 +107,13 @@ class GroupServiceImpl(
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     override fun delete(id: Long) {
-        val isDefaultGroup = groupRepository.isDefaultGroup(id)
-        if (isDefaultGroup) {
-            throw BackendException("Default group with id: $id cannot be deleted")
-        }
+        checkDefaultGroup(id)
         groupRepository.deleteById(id)
+    }
+
+    private fun checkDefaultGroup(groupId: Long) {
+        if (groupRepository.isDefaultGroup(groupId)) {
+            throw BackendException("Default group with id: $groupId cannot be modified or deleted")
+        }
     }
 }

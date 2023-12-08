@@ -6,11 +6,7 @@ import com.nemethlegtechnika.products.dto.company.GetCompanyProductDto
 import com.nemethlegtechnika.products.dto.company.UpdateCompanyDto
 import com.nemethlegtechnika.products.mapper.CompanyMapper
 import com.nemethlegtechnika.products.service.implementation.endpoint.CompanyServiceProxy
-import com.nemethlegtechnika.products.service.implementation.endpoint.proxyProxy
-import com.nemethlegtechnika.products.service.interfaces.CompanyService
-import com.nemethlegtechnika.products.service.interfaces.proxy
 import jakarta.validation.Valid
-import org.mapstruct.Qualifier
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -33,7 +29,7 @@ class CompanyController(
 
     @GetMapping("{companyName}/products")
     fun getProducts(@PathVariable companyName: String): ResponseEntity<GetCompanyProductDto> {
-        return proxy.get(companyName).response()
+        return proxy.getWithProduct(companyName).response()
     }
 
     @GetMapping("/id/{id}")

@@ -1,7 +1,8 @@
 package com.nemethlegtechnika.products.service.implementation.endpoint
 
-import com.nemethlegtechnika.products.db.model.ProductGroup
+import com.nemethlegtechnika.products.dto.group.CreateGroupDto
 import com.nemethlegtechnika.products.dto.group.GetGroupDto
+import com.nemethlegtechnika.products.dto.group.UpdateGroupDto
 import com.nemethlegtechnika.products.mapper.GroupMapper
 import com.nemethlegtechnika.products.service.interfaces.GroupService
 import org.springframework.stereotype.Service
@@ -20,10 +21,10 @@ class GroupServiceProxy(
     fun get(id: Long): GetGroupDto = groupService.get(id).let { groupMapper.map(it) }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    fun create(group: ProductGroup): GetGroupDto = groupService.create(group).let { groupMapper.map(it) }
+    fun create(group: CreateGroupDto): GetGroupDto = groupService.create(groupMapper.map(group)).let { groupMapper.map(it) }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    fun update(group: ProductGroup): GetGroupDto = groupService.update(group).let { groupMapper.map(it) }
+    fun update(group: UpdateGroupDto): GetGroupDto = groupService.update(groupMapper.map(group)).let { groupMapper.map(it) }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     fun addProduct(productId: Long, groupId: Long): GetGroupDto = groupService.addProduct(productId, groupId).let { groupMapper.map(it) }

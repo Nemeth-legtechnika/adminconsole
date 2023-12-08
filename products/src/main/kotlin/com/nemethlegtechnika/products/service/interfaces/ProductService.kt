@@ -9,6 +9,7 @@ interface ProductService {
     fun get(id: Long): Product
     fun create(companyName: String, product: Product): Product
     fun update(product: Product): Product
+    fun update(products: List<Product>): List<Product>
     fun addTag(productId: Long, tagId: Long): Product
     fun removeTag(productId: Long, tagId: Long): Product
     fun delete(id: Long)

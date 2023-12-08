@@ -68,6 +68,8 @@ class ProductServiceImpl(
         }
     }
 
+    override fun update(products: List<Product>): List<Product> = productRepository.saveAllAndFlush(products)
+
     @Transactional(isolation = Isolation.SERIALIZABLE)
     override fun addTag(productId: Long, tagId: Long): Product {
         val tag = tagService.get(tagId)

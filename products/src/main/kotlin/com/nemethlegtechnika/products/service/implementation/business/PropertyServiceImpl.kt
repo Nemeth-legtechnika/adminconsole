@@ -22,7 +22,7 @@ class PropertyServiceImpl(private val customPropertyRepository: CustomPropertyRe
     override fun getAll(): List<CustomProperty> = customPropertyRepository.findAll()
 
     @Transactional(isolation = Isolation.READ_COMMITTED, readOnly = true)
-    override fun get(name: String) = customPropertyRepository.findByName(name).throwWhenNotFound("name", name)
+    override fun get(name: String) = customPropertyRepository.findByNameIgnoreCase(name).throwWhenNotFound("name", name)
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     override fun update(property: CustomProperty): CustomProperty {
@@ -30,7 +30,7 @@ class PropertyServiceImpl(private val customPropertyRepository: CustomPropertyRe
             throw BackendException("Property's name cannot be empty")
         }
 
-        val entity = customPropertyRepository.findByName(property.name!!).throwWhenNotFound("name", property.name!!)
+        val entity = customPropertyRepository.findByNameIgnoreCase(property.name!!).throwWhenNotFound("name", property.name!!)
         entity.apply {
             this.value = property.value
         }

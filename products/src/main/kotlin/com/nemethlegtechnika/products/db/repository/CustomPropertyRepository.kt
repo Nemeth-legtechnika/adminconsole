@@ -8,5 +8,6 @@ import java.util.*
 @Repository
 interface CustomPropertyRepository: JpaRepository<CustomProperty, Long> {
     fun findByName(name: String): Optional<CustomProperty>
+    fun findByNameIgnoreCase(name: String): Optional<CustomProperty>
     fun existsByName(name: String): Boolean
 }

@@ -31,15 +31,13 @@ class GroupController(
 
     @PostMapping("/groupProducts")
     fun create(@Valid @RequestBody dto: CreateGroupDto): ResponseEntity<GetGroupDto> {
-        val group = groupMapper.map(dto)
-        val savedGroup = groupService.create(group)
+        val savedGroup = groupService.create(dto)
         return created(id = savedGroup.id!!, body = savedGroup)
     }
 
     @PutMapping
     fun update(@Valid @RequestBody dto: UpdateGroupDto): ResponseEntity<GetGroupDto> {
-        val group = groupMapper.map(dto)
-        return groupService.update(group).response()
+        return groupService.update(dto).response()
     }
 
     @PostMapping("/{groupId}/addProduct/{productId}")
