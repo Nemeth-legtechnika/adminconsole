@@ -1,9 +1,50 @@
+
+import kotlinx.kover.gradle.plugin.dsl.AggregationType
+import kotlinx.kover.gradle.plugin.dsl.MetricType
+
 val mapstructVersion: String by properties
 val hibernateJpaModelGenVersion: String by properties
 val openapiVersion: String by properties
 
 plugins {
 	kotlin("kapt")
+	id("org.jetbrains.kotlinx.kover")
+}
+
+koverReport {
+	filters {
+		excludes {
+			annotatedBy("jakarta.annotation.Generated")
+			annotatedBy("javax.annotation.processing.Generated")
+			annotatedBy("jakarta.persistence.Entity")
+			annotatedBy("jakarta.persistence.MappedSuperclass")
+			annotatedBy("jakarta.persistence.metamodel.StaticMetamodel")
+			annotatedBy("org.mapstruct.Mapper")
+		}
+		excludes {
+			packages("com.nemethlegtechnika.products.dto")
+			packages("com.nemethlegtechnika.products.mapper")
+			packages("com.nemethlegtechnika.products.exception")
+		}
+	}
+	verify {
+		rule("Basic Line Coverage") {
+			isEnabled = true
+			bound {
+				minValue = 80
+				metric = MetricType.LINE
+				aggregation = AggregationType.COVERED_PERCENTAGE
+			}
+		}
+
+		rule("Branch Coverage") {
+			isEnabled = true
+			bound {
+				minValue = 70
+				metric = MetricType.BRANCH
+			}
+		}
+	}
 }
 
 dependencies {

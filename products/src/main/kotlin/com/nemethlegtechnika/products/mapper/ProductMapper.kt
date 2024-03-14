@@ -1,6 +1,8 @@
 package com.nemethlegtechnika.products.mapper
 
 import com.nemethlegtechnika.products.db.model.Product
+import com.nemethlegtechnika.products.db.model.purchasePrice
+import com.nemethlegtechnika.products.db.model.sellPrice
 import com.nemethlegtechnika.products.dto.product.CreateProductDto
 import com.nemethlegtechnika.products.dto.product.GetProductDto
 import com.nemethlegtechnika.products.dto.product.UpdateProductDto

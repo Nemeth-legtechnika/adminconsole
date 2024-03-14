@@ -50,6 +50,10 @@ class ProductServiceImpl(
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     override fun update(product: Product): Product {
+        //If we want these fields to be updated, we need to check if the company and group exists
+        product.company?.let { companyService.exists(it.name).notFoundIfFalse("Company with name: ${it.name} does not exist") }
+        product.group?.let { groupService.exists(it.name).notFoundIfFalse("Group with name: ${it.name} does not exist") }
+
         return productRepository.update(product.id) {
             this.name = product.name ?: this.name
             this.number = product.number ?: this.number
@@ -59,12 +63,6 @@ class ProductServiceImpl(
             this.margin = product.margin ?: this.margin
             this.group = product.group ?: this.group
             this.company = product.company ?: this.company
-            if (product.tags.isNotEmpty()) {
-                this.tags.apply {
-                    clear()
-                    addAll(product.tags)
-                }
-            }
         }
     }
 
@@ -74,7 +72,7 @@ class ProductServiceImpl(
     override fun addTag(productId: Long, tagId: Long): Product {
         val tag = tagService.get(tagId)
         val product = get(productId)
-        product.tags.add(tag)
+        product.tags.find { it.id == tagId }?.let { throw EntityNotFoundException("Product with id: $productId already has tag with id: $tagId") } ?: product.tags.add(tag)
         return productRepository.saveAndFlush(product)
     }
 
@@ -89,5 +87,9 @@ class ProductServiceImpl(
     @Transactional(isolation = Isolation.SERIALIZABLE)
     override fun delete(id: Long) {
         productRepository.deleteById(id)
+    }
+
+    private fun Boolean.notFoundIfFalse(message: String) {
+        if (!this) throw EntityNotFoundException(message)
     }
 }

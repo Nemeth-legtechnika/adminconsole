@@ -8,5 +8,6 @@ interface CompanyService {
     fun get(id: Long): Company
     fun create(company: Company): Company
     fun update(company: Company): Company
+    fun exists(name: String?): Boolean
     fun delete(id: Long)
 }

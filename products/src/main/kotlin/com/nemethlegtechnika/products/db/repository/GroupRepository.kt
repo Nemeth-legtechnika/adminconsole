@@ -32,4 +32,6 @@ interface GroupRepository: JpaRepository<ProductGroup, Long> {
             and g.name = 'Default'
     """)
     fun isDefaultGroup(id: Long): Boolean
+
+    fun existsByName(name: String): Boolean
 }
