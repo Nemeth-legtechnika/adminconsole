@@ -208,9 +208,7 @@ class CompanyServiceTest {
 
     @Test
     fun `Test exists company by null name`() {
-        val companyName = "Company 1"
         val result = companyService.exists(null)
-
         assertTrue(!result)
     }
 }

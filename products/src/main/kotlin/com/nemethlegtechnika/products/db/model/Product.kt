@@ -51,17 +51,17 @@ class Product : BaseEntity() {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "group_id", nullable = false)
     var group: ProductGroup? = null
+}
 
-    fun purchasePrice(afa: CustomProperty): Long? {
-        return listPrice?.round {
-            val grossPrice = it * afa.value<Double>()
-            grossPrice * (1.0 - (discount ?: 0.0))
-        }
+fun Product.purchasePrice(afa: CustomProperty): Long? {
+    return listPrice?.round {
+        val grossPrice = it * afa.value<Double>()
+        grossPrice * (1.0 - (discount ?: 0.0))
     }
+}
 
-    fun sellPrice(afa: CustomProperty): Long? {
-        return purchasePrice(afa)?.round {
-            it * (1.0 + (margin ?: 0.0))
-        }
+fun Product.sellPrice(afa: CustomProperty): Long? {
+    return purchasePrice(afa)?.round {
+        it * (1.0 + (margin ?: 0.0))
     }
 }

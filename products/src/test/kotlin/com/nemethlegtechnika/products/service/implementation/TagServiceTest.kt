@@ -67,7 +67,7 @@ class TagServiceTest {
         every { tagRepository.findById(tagId) } returns Optional.empty()
 
         val exception = assertThrows<EntityNotFoundException> { tagService.get(tagId) }
-        assertEquals("Tag with id $tagId not found", exception.message)
+        assertEquals("[AdminConsole][Backend]: No Tag was found with id: $tagId", exception.message)
     }
 
     @Test
