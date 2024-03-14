@@ -14,6 +14,7 @@ enum class Type {
 @Entity
 @Table(name = "custom_property")
 class CustomProperty : BaseEntity() {
+
     @Column(name = "name", unique = true, nullable = false)
     var name: String? = null
 

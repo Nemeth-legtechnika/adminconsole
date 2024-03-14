@@ -12,5 +12,6 @@ interface GroupService {
     fun update(group: ProductGroup): ProductGroup
     fun addProduct(productId: Long, groupId: Long): ProductGroup
     fun removeProduct(productId: Long, groupId: Long): ProductGroup
+    fun exists(name: String?): Boolean
     fun delete(id: Long)
 }

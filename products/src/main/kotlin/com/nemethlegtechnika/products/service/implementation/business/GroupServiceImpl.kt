@@ -34,7 +34,7 @@ class GroupServiceImpl(
     @Transactional(isolation = Isolation.SERIALIZABLE)
     override fun getDefaultGroup(company: Company): ProductGroup {
         if (company.id == null && company.name.isNullOrBlank()) {
-            throw BackendException("Company's Id or Name should not be null when searching for default group")
+            throw BackendException("Company's id or name should not be null when searching for default group")
         }
         val defaultGroup = if (company.id == null) {
             groupRepository.findDefaultGroup(company.name!!).value
@@ -63,10 +63,9 @@ class GroupServiceImpl(
     override fun create(group: ProductGroup): ProductGroup {
         val ids = group.products.map { it.id!! }
         val products = productService.getAll(ids)
-        products.all { it.company?.name == group.company?.name }
-            .also {
-                if (!it) throw BackendException("All product's company in group ${group.name} has to be ${group.company?.name}")
-            }
+        if(!products.all { it.company?.name == group.company?.name }) {
+            throw BackendException("All product's company in group ${group.name} has to be ${group.company?.name}")
+        }
 
         products.forEach {
             it.group = group
@@ -79,15 +78,14 @@ class GroupServiceImpl(
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     override fun update(group: ProductGroup): ProductGroup {
-        checkDefaultGroup(group.id!!)
         return groupRepository.update(group.id) {
+            checkDefaultGroup(group.id!!)
             this.name = group.name ?: this.name
         }
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     override fun addProduct(productId: Long, groupId: Long): ProductGroup {
-        checkDefaultGroup(groupId)
         val product = productService.get(productId)
         val group = get(groupId)
         group.products.add(product)
@@ -96,13 +94,18 @@ class GroupServiceImpl(
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     override fun removeProduct(productId: Long, groupId: Long): ProductGroup {
-        checkDefaultGroup(groupId)
         val product = productService.get(productId)
         val group = get(groupId)
+        checkDefaultGroup(groupId)
         group.products.remove(product)
         product.group = product.company?.let { getDefaultGroup(it) }
         productService.update(product)
         return groupRepository.saveAndFlush(group)
+    }
+
+    @Transactional(isolation = Isolation.READ_COMMITTED, readOnly = true)
+    override fun exists(name: String?): Boolean {
+        return name?.let { groupRepository.existsByName(name) } ?: false
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)

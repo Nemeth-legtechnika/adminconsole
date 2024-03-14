@@ -29,7 +29,9 @@ class CompanyServiceImpl(
     @Transactional(isolation = Isolation.SERIALIZABLE)
     override fun create(company: Company): Company {
         val result = companyRepository.saveAndFlush(company)
-        groupService.createDefaultGroup(result)
+        groupService.createDefaultGroup(result).also {
+            result.groups.add(it)
+        }
         return result
     }
 
@@ -38,8 +40,13 @@ class CompanyServiceImpl(
         return companyRepository.update(company.id) {
             this.name = company.name ?: this.name
             this.discount = company.discount ?: this.discount
-            this.margin = company.discount ?: this.discount
+            this.margin = company.margin ?: this.margin
         }
+    }
+
+    @Transactional(isolation = Isolation.READ_COMMITTED, readOnly = true)
+    override fun exists(name: String?): Boolean {
+        return name?.let { companyRepository.existsByName(name) } ?: false
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
