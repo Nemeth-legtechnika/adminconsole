@@ -25,11 +25,15 @@ class CustomProperty : BaseEntity() {
     var type: Type = Type.STRING
 
     final inline fun <reified T> value(): T {
-        return when(T::class) {
-            Double::class -> value.toDouble() as T
-            Int::class -> value.toInt() as T
-            String::class -> value as T
-            else -> throw BackendException.typeNotSupported<CustomProperty>(T::class.simpleName)
+        return try {
+            when (T::class) {
+                Double::class -> value.toDouble() as T
+                Int::class -> value.toInt() as T
+                String::class -> value as T
+                else -> throw BackendException.typeNotSupported<CustomProperty>(T::class.simpleName)
+            }
+        } catch (e: NumberFormatException) {
+            throw BackendException("Illegal value for ${T::class.simpleName}: $value")
         }
     }
 }
