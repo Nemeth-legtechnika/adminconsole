@@ -1,5 +1,4 @@
 
-import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.exclude
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
@@ -63,6 +62,7 @@ allprojects {
 				property("sonar.projectKey", "Nemeth-legtechnika_adminconsole")
 				property("sonar.organization", "nemeth-legtechnika")
 				property("sonar.host.url", "https://sonarcloud.io")
+				property("sonar.coverage.jacoco.xmlReportPaths", "products/build/reports/kover/report.xml")
 			}
 		}
 	}
