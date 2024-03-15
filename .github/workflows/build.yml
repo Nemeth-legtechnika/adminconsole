@@ -37,3 +37,6 @@ jobs:
         sonar.organization: ${{ secrets.SONAR_ORGANIZATION }}
     - name: Run SonarCloud Scanner
       run: ./gradlew sonarqube --info
+      env:
+        sonar.projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
+        sonar.organization: ${{ secrets.SONAR_ORGANIZATION }}
