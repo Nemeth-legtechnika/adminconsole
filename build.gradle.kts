@@ -1,4 +1,5 @@
 
+import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.exclude
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
@@ -14,6 +15,7 @@ plugins {
 	id("org.springframework.boot")
 	id("io.spring.dependency-management")
 	id("org.jetbrains.kotlin.plugin.allopen")
+	id("org.sonarqube")
 }
 
 val jar: Jar by tasks
@@ -33,6 +35,7 @@ allprojects {
 		plugin("org.jetbrains.kotlin.jvm")
 		plugin("org.jetbrains.kotlin.plugin.spring")
 		plugin("org.jetbrains.kotlin.plugin.allopen")
+		plugin("org.sonarqube")
 	}
 
 	java.sourceCompatibility = JavaVersion.VERSION_17
@@ -53,6 +56,14 @@ allprojects {
 		allOpen {
 			annotation("jakarta.persistence.Entity")
 			annotation("jakarta.persistence.MappedSuperclass")
+		}
+
+		sonar {
+			properties {
+				property("sonar.projectKey", "Nemeth-legtechnika_adminconsole")
+				property("sonar.organization", "nemeth-legtechnika")
+				property("sonar.host.url", "https://sonarcloud.io")
+			}
 		}
 	}
 
