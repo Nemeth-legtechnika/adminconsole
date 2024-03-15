@@ -41,8 +41,14 @@ jobs:
         name: test-results
         path: products/build/reports/tests
 
-    - name: Build and analyze
+    - name: Generate Kover report
+      run: ./gradlew koverXmlReport --info
+
+    - name: Build with Gradle
+      run: ./gradlew build --info
+
+    - name: Analyze
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: ./gradlew build koverXmlReport sonar --info
+      run: ./gradlew sonar --info
