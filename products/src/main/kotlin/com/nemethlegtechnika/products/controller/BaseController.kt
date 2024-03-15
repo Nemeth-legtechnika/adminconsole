@@ -1,6 +1,5 @@
 package com.nemethlegtechnika.products.controller
 
-import com.nemethlegtechnika.products.db.model.BaseEntity
 import org.springframework.http.ResponseEntity
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 import java.net.URI
