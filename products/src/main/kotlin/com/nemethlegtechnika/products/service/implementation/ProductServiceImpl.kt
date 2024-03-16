@@ -1,4 +1,4 @@
-package com.nemethlegtechnika.products.service.implementation.business
+package com.nemethlegtechnika.products.service.implementation
 
 import com.nemethlegtechnika.products.db.model.Product
 import com.nemethlegtechnika.products.db.repository.ProductRepository

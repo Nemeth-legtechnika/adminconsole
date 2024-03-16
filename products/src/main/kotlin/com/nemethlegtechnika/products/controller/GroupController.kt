@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("api/group")
 class GroupController(
     private val groupMapper: GroupMapper,
-    private val groupService: GroupServiceProxy
+    private val groupService: GroupServiceProxy,
 ): BaseController() {
 
     @GetMapping

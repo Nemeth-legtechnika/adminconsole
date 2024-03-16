@@ -1,4 +1,4 @@
-package com.nemethlegtechnika.products.service.implementation.business
+package com.nemethlegtechnika.products.service.implementation
 
 import com.nemethlegtechnika.products.db.model.CustomProperty
 import com.nemethlegtechnika.products.db.repository.CustomPropertyRepository
@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class PropertyServiceImpl(private val customPropertyRepository: CustomPropertyRepository) : PropertyService {
+class PropertyServiceImpl(
+    private val customPropertyRepository: CustomPropertyRepository,
+) : PropertyService {
     @get:Transactional(isolation = Isolation.READ_COMMITTED, readOnly = true)
     @set:Transactional(isolation = Isolation.SERIALIZABLE)
     override var afa: CustomProperty

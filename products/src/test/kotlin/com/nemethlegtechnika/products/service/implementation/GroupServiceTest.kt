@@ -6,7 +6,7 @@ import com.nemethlegtechnika.products.db.model.ProductGroup
 import com.nemethlegtechnika.products.db.repository.GroupRepository
 import com.nemethlegtechnika.products.exception.EntityNotFoundException
 import com.nemethlegtechnika.products.optional
-import com.nemethlegtechnika.products.service.implementation.business.GroupServiceImpl
+import com.nemethlegtechnika.products.service.implementation.GroupServiceImpl
 import com.nemethlegtechnika.products.service.interfaces.ProductService
 import io.mockk.every
 import io.mockk.mockk
