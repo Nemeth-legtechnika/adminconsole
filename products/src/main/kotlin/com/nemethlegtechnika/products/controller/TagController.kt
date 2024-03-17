@@ -4,7 +4,12 @@ import com.nemethlegtechnika.products.dto.tag.CreateTagDto
 import com.nemethlegtechnika.products.dto.tag.GetTagDto
 import com.nemethlegtechnika.products.dto.tag.UpdateTagDto
 import com.nemethlegtechnika.products.mapper.TagMapper
-import com.nemethlegtechnika.products.service.implementation.endpoint.TagServiceProxy
+import com.nemethlegtechnika.products.service.interfaces.TagService
+import com.nemethlegtechnika.products.service.response.ResponseResolver
+import com.nemethlegtechnika.products.service.response.list
+import com.nemethlegtechnika.products.service.response.read
+import com.nemethlegtechnika.products.service.response.single
+import com.nemethlegtechnika.products.service.response.write
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -20,31 +25,32 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("api/tag")
 class TagController(
     private val tagMapper: TagMapper,
-    private val tagService: TagServiceProxy
+    private val service: TagService,
+    private val resolver: ResponseResolver,
 ) : BaseController() {
 
     @GetMapping
-    fun getAll() = ResponseEntity.ok(tagService.getAll())
+    fun getAll() = list(tagMapper::map) { service.getAll() } read resolver
 
     @GetMapping("/{id}")
-    fun get(@PathVariable id: Long) = tagService.get(id).response()
+    fun get(@PathVariable id: Long) = single(tagMapper::map) { service.get(id) } read resolver
 
     @PostMapping
     fun create(@Valid @RequestBody dto: CreateTagDto): ResponseEntity<Unit> {
         val tag = tagMapper.map(dto)
-        val id = tagService.create(tag).id!!
+        val id = service.create(tag).id!!
         return created(id)
     }
 
     @PutMapping
     fun update(@Valid @RequestBody dto: UpdateTagDto): ResponseEntity<GetTagDto> {
         val tag = tagMapper.map(dto)
-        return tagService.update(tag).response()
+        return single(tagMapper::map) { service.update(tag) } write resolver
     }
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: Long): ResponseEntity<Unit> {
-        tagService.delete(id)
+        service.delete(id)
         return ResponseEntity.noContent().build()
     }
 }

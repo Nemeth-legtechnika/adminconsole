@@ -20,9 +20,9 @@ class Company : BaseEntity() {
     @Column(name = "margin", nullable = false)
     var margin: Double? = null
 
-    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     val products: MutableList<Product> = mutableListOf()
 
-    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     val groups: MutableList<ProductGroup> = mutableListOf()
 }

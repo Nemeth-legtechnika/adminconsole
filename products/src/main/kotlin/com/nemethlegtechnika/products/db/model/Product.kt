@@ -44,7 +44,8 @@ class Product : BaseEntity() {
     @JoinTable(
         name = "product_tag",
         joinColumns = [JoinColumn(name = "product_id")],
-        inverseJoinColumns = [JoinColumn(name = "tag_id")]
+        inverseJoinColumns = [JoinColumn(name = "tag_id")],
+        uniqueConstraints = [UniqueConstraint(columnNames = ["product_id", "tag_id"])]
     )
     var tags: MutableList<Tag> = mutableListOf()
 
