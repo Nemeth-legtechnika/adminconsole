@@ -4,7 +4,12 @@ import com.nemethlegtechnika.products.dto.product.CreateProductDto
 import com.nemethlegtechnika.products.dto.product.GetProductDto
 import com.nemethlegtechnika.products.dto.product.UpdateProductDto
 import com.nemethlegtechnika.products.mapper.ProductMapper
-import com.nemethlegtechnika.products.service.implementation.endpoint.ProductServiceProxy
+import com.nemethlegtechnika.products.service.interfaces.ProductService
+import com.nemethlegtechnika.products.service.response.ResponseResolver
+import com.nemethlegtechnika.products.service.response.list
+import com.nemethlegtechnika.products.service.response.read
+import com.nemethlegtechnika.products.service.response.single
+import com.nemethlegtechnika.products.service.response.write
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -20,41 +25,42 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/product")
 class ProductController(
     private val productMapper: ProductMapper,
-    private val productService: ProductServiceProxy,
+    private val service: ProductService,
+    private val resolver: ResponseResolver,
 ) : BaseController() {
 
     @GetMapping()
-    fun getAll() = ResponseEntity.ok(productService.getAll())
+    fun getAll() = list(productMapper::map) { service.getAll() } read resolver
 
     @GetMapping("/{id}")
-    fun get(@PathVariable id: Long) = productService.get(id).response()
+    fun get(@PathVariable id: Long) = single(productMapper::map) { service.get(id) } read resolver
 
     @PostMapping
     fun create(@Valid @RequestBody dto: CreateProductDto): ResponseEntity<Unit> {
         val product = productMapper.map(dto)
-        val id = productService.create(dto.companyName!!, product).id!!
+        val id = service.create(dto.companyName!!, product).id!!
         return created(id)
     }
 
     @PutMapping
     fun update(@Valid @RequestBody dto: UpdateProductDto): ResponseEntity<GetProductDto> {
         val product = productMapper.map(dto)
-        return productService.update(product).response()
+        return single(productMapper::map) { service.update(product) } write resolver
     }
 
     @PostMapping("/{productId}/addTag/{tagId}")
     fun addTag(@PathVariable productId: Long, @PathVariable tagId: Long): ResponseEntity<GetProductDto> {
-        return productService.addTag(productId, tagId).response()
+        return single(productMapper::map) { service.addTag(productId, tagId) } write resolver
     }
 
     @PostMapping("/{productId}/removeTag/{tagId}")
     fun removeTag(@PathVariable productId: Long, @PathVariable tagId: Long): ResponseEntity<GetProductDto> {
-        return productService.removeTag(productId, tagId).response()
+        return single(productMapper::map) { service.removeTag(productId, tagId) } write resolver
     }
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: Long): ResponseEntity<Unit> {
-        productService.delete(id)
+        service.delete(id)
         return ResponseEntity.noContent().build()
     }
 }

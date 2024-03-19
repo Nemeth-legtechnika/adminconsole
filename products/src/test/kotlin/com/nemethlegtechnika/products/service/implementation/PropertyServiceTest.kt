@@ -5,7 +5,7 @@ import com.nemethlegtechnika.products.db.repository.CustomPropertyRepository
 import com.nemethlegtechnika.products.exception.BackendException
 import com.nemethlegtechnika.products.exception.EntityNotFoundException
 import com.nemethlegtechnika.products.optional
-import com.nemethlegtechnika.products.service.implementation.business.PropertyServiceImpl
+import com.nemethlegtechnika.products.service.implementation.PropertyServiceImpl
 import io.mockk.Called
 import io.mockk.every
 import io.mockk.mockk

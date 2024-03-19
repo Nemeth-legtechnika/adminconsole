@@ -4,7 +4,7 @@ import com.nemethlegtechnika.products.db.model.Tag
 import com.nemethlegtechnika.products.db.repository.TagRepository
 import com.nemethlegtechnika.products.exception.EntityNotFoundException
 import com.nemethlegtechnika.products.optional
-import com.nemethlegtechnika.products.service.implementation.business.TagServiceImpl
+import com.nemethlegtechnika.products.service.implementation.TagServiceImpl
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot

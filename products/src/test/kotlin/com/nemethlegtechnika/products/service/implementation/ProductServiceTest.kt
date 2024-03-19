@@ -7,7 +7,7 @@ import com.nemethlegtechnika.products.db.model.Tag
 import com.nemethlegtechnika.products.db.repository.ProductRepository
 import com.nemethlegtechnika.products.exception.EntityNotFoundException
 import com.nemethlegtechnika.products.optional
-import com.nemethlegtechnika.products.service.implementation.business.ProductServiceImpl
+import com.nemethlegtechnika.products.service.implementation.ProductServiceImpl
 import com.nemethlegtechnika.products.service.interfaces.CompanyService
 import com.nemethlegtechnika.products.service.interfaces.GroupService
 import com.nemethlegtechnika.products.service.interfaces.TagService

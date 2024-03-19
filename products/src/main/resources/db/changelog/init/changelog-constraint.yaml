@@ -42,6 +42,16 @@ databaseChangeLog:
     - changeSet:
           id: 1701957339276-12
           author: Nemeth Botond
+          labels: unique-constraint
+          objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+          changes:
+              - addUniqueConstraint:
+                    columnNames: product_id, tag_id
+                    constraintName: uc_tag_product_id
+                    tableName: product_tag
+    - changeSet:
+          id: 1701957339276-13
+          author: Nemeth Botond
           labels: foreignkey-constraint
           objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
           changes:
@@ -52,7 +62,7 @@ databaseChangeLog:
                     referencedColumnNames: id
                     referencedTableName: company
     - changeSet:
-          id: 1701957339276-13
+          id: 1701957339276-14
           author: Nemeth Botond
           labels: foreignkey-constraint
           objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
@@ -64,7 +74,7 @@ databaseChangeLog:
                     referencedColumnNames: id
                     referencedTableName: company
     - changeSet:
-          id: 1701957339276-14
+          id: 1701957339276-15
           author: Nemeth Botond
           labels: foreignkey-constraint
           objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
@@ -76,7 +86,7 @@ databaseChangeLog:
                     referencedColumnNames: id
                     referencedTableName: product_group
     - changeSet:
-          id: 1701957339276-15
+          id: 1701957339276-16
           author: Nemeth Botond
           labels: foreignkey-constraint
           objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
@@ -88,7 +98,7 @@ databaseChangeLog:
                     referencedColumnNames: id
                     referencedTableName: product
     - changeSet:
-          id: 1701957339276-16
+          id: 1701957339276-17
           author: Nemeth Botond
           labels: foreignkey-constraint
           objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS

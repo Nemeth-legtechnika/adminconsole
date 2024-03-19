@@ -1,4 +1,4 @@
-package com.nemethlegtechnika.products.service.implementation.business
+package com.nemethlegtechnika.products.service.implementation
 
 import com.nemethlegtechnika.products.db.model.Tag
 import com.nemethlegtechnika.products.db.repository.TagRepository
@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class TagServiceImpl(private val tagRepository: TagRepository) : TagService {
+class TagServiceImpl(
+    private val tagRepository: TagRepository,
+) : TagService {
     @Transactional(isolation = Isolation.READ_COMMITTED, readOnly = true)
     override fun getAll(): List<Tag> = tagRepository.findAll()
 
