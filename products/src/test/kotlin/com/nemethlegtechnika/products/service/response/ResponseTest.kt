@@ -84,4 +84,36 @@ class ResponseTest {
         verify(exactly = 1) { resolver.write(any()) }
         verify(exactly = 0) { resolver.read(any()) }
     }
+
+    @Test
+    fun `Test coList read response`() {
+        cnt = 0
+        val list = coList(::mapWithCnt) { listOf(From(1, "One"), From(2, "Two")) } read resolver
+
+        assertThat(list.statusCode).isEqualTo(HttpStatus.OK)
+        val body = list.body
+        assertThat(body).isNotNull
+        assertThat(body!!.size).isEqualTo(2)
+        assertThat(body[0].value).isEqualTo("Value for One is 1")
+        assertThat(body[1].value).isEqualTo("Value for Two is 2")
+        assertThat(cnt).isEqualTo(2)
+        verify(exactly = 0) { resolver.write(any()) }
+        verify(exactly = 1) { resolver.read(any()) }
+    }
+
+    @Test
+    fun `Test coList write response`() {
+        cnt = 0
+        val list = coList(::mapWithCnt) { listOf(From(1, "One"), From(2, "Two")) } write resolver
+
+        assertThat(list.statusCode).isEqualTo(HttpStatus.OK)
+        val body = list.body
+        assertThat(body).isNotNull
+        assertThat(body!!.size).isEqualTo(2)
+        assertThat(body[0].value).isEqualTo("Value for One is 1")
+        assertThat(body[1].value).isEqualTo("Value for Two is 2")
+        assertThat(cnt).isEqualTo(2)
+        verify(exactly = 1) { resolver.write(any()) }
+        verify(exactly = 0) { resolver.read(any()) }
+    }
 }
