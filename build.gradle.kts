@@ -62,8 +62,7 @@ allprojects {
 				property("sonar.projectKey", "Nemeth-legtechnika_adminconsole")
 				property("sonar.organization", "nemeth-legtechnika")
 				property("sonar.host.url", "https://sonarcloud.io")
-				val reports = project.subprojects.joinToString(",") { "${it.buildDir}/reports/kover/report.xml" }
-				property("sonar.coverage.jacoco.xmlReportPaths", reports)
+				property("sonar.coverage.jacoco.xmlReportPaths", "products/build/reports/kover/report.xml")
 			}
 		}
 	}
