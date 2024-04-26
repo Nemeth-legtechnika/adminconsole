@@ -8,10 +8,15 @@ services:
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DOCKER_DB_URL: ${DOCKER_DB_URL}
-      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
-      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      DOCKER_KEYCLOAK_ISSUER_URI: ${DOCKER_KEYCLOAK_ISSUER_URI}
     ports:
       - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - keycloak_network
+
   db:
     image: postgres:latest
     environment:
@@ -28,6 +33,33 @@ services:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: "exit 0"
+    networks:
+      - keycloak_network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    command: start-dev
+    environment:
+      KC_DB: postgres
+      KC_DB_URL_HOST: db
+      KC_DB_URL_DATABASE: ${DB_NAME}
+      KC_DB_PASSWORD: ${DB_PASSWORD}
+      KC_DB_USERNAME: ${DB_USER}
+      KC_DB_SCHEMA: public
+      KEYCLOAK_ADMIN: ${KEYCLOAK_USER}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_PASSWORD}
+    ports:
+      - "8081:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - keycloak_network
 
 volumes:
   db_data:
+networks:
+  keycloak_network:
+    driver: bridge
