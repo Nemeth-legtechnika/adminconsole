@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "okta.oauth2.issuer",
+      "type": "java.lang.String",
+      "description": "The issuer URI of the resource server, which will be the value of the iss claim in the JWT issued by Auth0. Spring Security will use this property to discover the authorization server's public keys and validate the JWT signature. The value will be your Auth0 domain with an https:// prefix and a / suffix (the trailing slash is important)."
+    },
+    {
+      "name": "okta.oauth2.audience",
+      "type": "java.lang.String",
+      "description": "The unique identifier for your API."
+    }
+  ]
+}

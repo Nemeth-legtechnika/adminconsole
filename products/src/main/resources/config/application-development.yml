@@ -29,3 +29,12 @@ spring:
   sql:
     init:
       mode: always
+okta:
+  oauth2:
+    issuer: ${AUTH0_ISSUER_TEST}
+    audience: ${AUTH0_AUDIENCE_TEST}
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
