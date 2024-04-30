@@ -28,3 +28,8 @@ spring:
   sql:
     init:
       mode: never
+# Todo change it to production values
+okta:
+  oauth2:
+    issuer: ${AUTH0_ISSUER_TEST}
+    audience: ${AUTH0_AUDIENCE_TEST}

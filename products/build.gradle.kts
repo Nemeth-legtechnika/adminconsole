@@ -5,6 +5,7 @@ import kotlinx.kover.gradle.plugin.dsl.MetricType
 val mapstructVersion: String by properties
 val hibernateJpaModelGenVersion: String by properties
 val openapiVersion: String by properties
+val oktaVersion: String by properties
 
 plugins {
 	kotlin("kapt")
@@ -52,6 +53,7 @@ dependencies {
 	implementation("org.postgresql:postgresql")
 	implementation("org.mapstruct:mapstruct:$mapstructVersion")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$openapiVersion")
+	implementation("com.okta.spring:okta-spring-boot-starter:$oktaVersion")
 	kapt("org.mapstruct:mapstruct-processor:$mapstructVersion")
 	compileOnly("org.hibernate.orm:hibernate-jpamodelgen:$hibernateJpaModelGenVersion")
 }
