@@ -12,12 +12,11 @@ import org.mapstruct.MappingConstants
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = [ProductService::class, CompanyService::class])
 interface GroupMapper {
-    @Mapping(source = "company.name", target = "companyName")
     fun map(productGroup: ProductGroup): GetGroupDto
-    @Mapping(target = "company", ignore = true)
+
     @Mapping(target = "products", ignore = true)
     fun map(updateGroupDto: UpdateGroupDto): ProductGroup
-    @Mapping(source = "companyName", target = "company")
+
     @Mapping(source = "productIds", target = "products")
     @Mapping(target = "id", ignore = true)
     fun map(createGroupDto: CreateGroupDto): ProductGroup

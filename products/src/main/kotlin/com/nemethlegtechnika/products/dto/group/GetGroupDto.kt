@@ -13,6 +13,5 @@ data class GetGroupDto @Default constructor(
     val createdAt: Date? = null,
     val updatedAt: Date? = null,
     val name: String? = null,
-    val companyName: String? = null,
     val products: MutableList<ProductInfoDto> = mutableListOf()
 ) : Serializable

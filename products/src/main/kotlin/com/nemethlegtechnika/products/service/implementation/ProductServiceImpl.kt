@@ -2,6 +2,7 @@ package com.nemethlegtechnika.products.service.implementation
 
 import com.nemethlegtechnika.products.db.model.Product
 import com.nemethlegtechnika.products.db.repository.ProductRepository
+import com.nemethlegtechnika.products.exception.BackendException
 import com.nemethlegtechnika.products.exception.EntityNotFoundException
 import com.nemethlegtechnika.products.service.interfaces.CompanyService
 import com.nemethlegtechnika.products.service.interfaces.GroupService
@@ -38,12 +39,11 @@ class ProductServiceImpl(
     @Transactional(isolation = Isolation.SERIALIZABLE)
     override fun create(companyName: String, product: Product): Product {
         val company = companyService.get(companyName)
-        val defaultGroup = groupService.getDefaultGroup(company)
         product.apply {
             this.discount = this.discount ?: company.discount
             this.margin = this.margin ?: company.margin
             this.company = company
-            this.group = defaultGroup
+            this.group = null
         }
         return productRepository.saveAndFlush(product)
     }
@@ -72,7 +72,7 @@ class ProductServiceImpl(
     override fun addTag(productId: Long, tagId: Long): Product {
         val tag = tagService.get(tagId)
         val product = get(productId)
-        product.tags.find { it.id == tagId }?.let { throw EntityNotFoundException("Product with id: $productId already has tag with id: $tagId") } ?: product.tags.add(tag)
+        product.tags.find { it.id == tagId }?.let { throw BackendException("Product with id: $productId already has tag with id: $tagId") } ?: product.tags.add(tag)
         return productRepository.saveAndFlush(product)
     }
 
@@ -87,6 +87,11 @@ class ProductServiceImpl(
     @Transactional(isolation = Isolation.SERIALIZABLE)
     override fun delete(id: Long) {
         productRepository.deleteById(id)
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    override fun delete(ids: List<Long>) {
+        productRepository.deleteAllByIdInBatch(ids)
     }
 
     private fun Boolean.notFoundIfFalse(message: String) {

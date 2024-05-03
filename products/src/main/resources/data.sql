@@ -4,10 +4,10 @@ INSERT INTO company (id, created_at, updated_at, name, discount, margin) VALUES
     (3, current_timestamp, current_timestamp, 'Company C', 0.2, 0.1)
 ON CONFLICT DO NOTHING;
 
-INSERT INTO product_group (id, created_at, updated_at, name, company_id) VALUES
-     (1, current_timestamp, current_timestamp, 'Electronics', 1),
-     (2, current_timestamp, current_timestamp, 'Clothing', 2),
-     (3, current_timestamp, current_timestamp, 'Home and Kitchen', 3)
+INSERT INTO product_group (id, created_at, updated_at, name) VALUES
+     (1, current_timestamp, current_timestamp, 'Electronics'),
+     (2, current_timestamp, current_timestamp, 'Clothing'),
+     (3, current_timestamp, current_timestamp, 'Home and Kitchen')
 ON CONFLICT DO NOTHING;
 
 INSERT INTO product (id, created_at, updated_at, name, number, description, list_price, discount, margin, company_id, group_id) VALUES

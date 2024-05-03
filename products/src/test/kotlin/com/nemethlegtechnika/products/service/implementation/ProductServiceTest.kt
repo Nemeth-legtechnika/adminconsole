@@ -5,9 +5,9 @@ import com.nemethlegtechnika.products.db.model.Product
 import com.nemethlegtechnika.products.db.model.ProductGroup
 import com.nemethlegtechnika.products.db.model.Tag
 import com.nemethlegtechnika.products.db.repository.ProductRepository
+import com.nemethlegtechnika.products.exception.BackendException
 import com.nemethlegtechnika.products.exception.EntityNotFoundException
 import com.nemethlegtechnika.products.optional
-import com.nemethlegtechnika.products.service.implementation.ProductServiceImpl
 import com.nemethlegtechnika.products.service.interfaces.CompanyService
 import com.nemethlegtechnika.products.service.interfaces.GroupService
 import com.nemethlegtechnika.products.service.interfaces.TagService
@@ -205,10 +205,6 @@ class ProductServiceTest {
             discount = 10.0
             margin = 20.0
         }
-        every { groupService.getDefaultGroup(any()) } returns ProductGroup().apply {
-            id = 1
-            name = "Default"
-        }
         every { productRepository.saveAndFlush(product) } returns product
 
         val result = productService.create(companyName, product)
@@ -220,7 +216,7 @@ class ProductServiceTest {
         assertEquals(10.0, result.discount)
         assertEquals(20.0, result.margin)
         assertEquals("Company 1", result.company?.name)
-        assertEquals("Default", result.group?.name)
+        assertEquals(null, result.group)
     }
 
     @Test
@@ -238,10 +234,6 @@ class ProductServiceTest {
             discount = 10.0
             margin = 20.0
         }
-        every { groupService.getDefaultGroup(any()) } returns ProductGroup().apply {
-            id = 1
-            name = "Default"
-        }
         every { productRepository.saveAndFlush(product) } returns product
 
         val result = productService.create(companyName, product)
@@ -253,7 +245,7 @@ class ProductServiceTest {
         assertEquals(10.0, result.discount)
         assertEquals(20.0, result.margin)
         assertEquals("Company 1", result.company?.name)
-        assertEquals("Default", result.group?.name)
+        assertEquals(null, result.group)
     }
 
     @TestFactory
@@ -542,7 +534,7 @@ class ProductServiceTest {
         every { tagService.get(tagId) } returns tag
         every { productRepository.findById(productId) } returns product.optional
 
-        val exception = assertThrows<EntityNotFoundException> {
+        val exception = assertThrows<BackendException> {
             productService.addTag(productId, tagId)
         }
 

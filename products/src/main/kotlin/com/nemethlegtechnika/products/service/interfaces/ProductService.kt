@@ -13,4 +13,5 @@ interface ProductService {
     fun addTag(productId: Long, tagId: Long): Product
     fun removeTag(productId: Long, tagId: Long): Product
     fun delete(id: Long)
+    fun delete(ids: List<Long>)
 }

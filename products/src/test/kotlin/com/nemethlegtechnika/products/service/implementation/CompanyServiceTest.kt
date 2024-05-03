@@ -1,11 +1,11 @@
 package com.nemethlegtechnika.products.service.implementation
 
 import com.nemethlegtechnika.products.db.model.Company
-import com.nemethlegtechnika.products.db.model.ProductGroup
 import com.nemethlegtechnika.products.db.repository.CompanyRepository
 import com.nemethlegtechnika.products.exception.EntityNotFoundException
 import com.nemethlegtechnika.products.optional
 import com.nemethlegtechnika.products.service.interfaces.GroupService
+import com.nemethlegtechnika.products.service.interfaces.ProductService
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
@@ -23,7 +23,9 @@ class CompanyServiceTest {
 
     private val companyRepository: CompanyRepository = mockk()
 
-    private val companyService = CompanyServiceImpl(companyRepository, groupService)
+    private val productService: ProductService = mockk()
+
+    private val companyService = CompanyServiceImpl(companyRepository, productService)
 
     @Test
     fun `Test get all companies`() {
@@ -118,11 +120,7 @@ class CompanyServiceTest {
             discount = 10.0
             margin = 20.0
         }
-        every { groupService.createDefaultGroup(company) } returns ProductGroup().apply {
-            id = 1
-            name = "Default"
-            this.company = company
-        }
+
         every { companyRepository.saveAndFlush(company) } returns company
 
         val result = companyService.create(company)
@@ -131,8 +129,6 @@ class CompanyServiceTest {
         assertEquals("Company 1", result.name)
         assertEquals( 10.0, result.discount)
         assertEquals( 20.0, result.margin)
-        assertEquals( 1, result.groups.size)
-        assertEquals("Default", result.groups[0].name)
     }
 
     @TestFactory

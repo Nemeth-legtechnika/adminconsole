@@ -49,8 +49,8 @@ class Product : BaseEntity() {
     )
     var tags: MutableList<Tag> = mutableListOf()
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "group_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "group_id", nullable = true)
     var group: ProductGroup? = null
 }
 

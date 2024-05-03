@@ -54,8 +54,6 @@ databaseChangeLog:
                   name: company_id
                   type: BIGINT
               - column:
-                  constraints:
-                    nullable: false
                   name: group_id
                   type: BIGINT
             tableName: product
