@@ -1,15 +1,5 @@
 databaseChangeLog:
     - changeSet:
-          id: 1701957339276-8
-          author: Nemeth Botond
-          labels: unique-constraint
-          objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-          changes:
-              - addUniqueConstraint:
-                    columnNames: name, company_id
-                    constraintName: uc_4d9629005954996bec3ada0d4
-                    tableName: product_group
-    - changeSet:
           id: 1701957339276-9
           author: Nemeth Botond
           labels: unique-constraint
@@ -49,18 +39,6 @@ databaseChangeLog:
                     columnNames: product_id, tag_id
                     constraintName: uc_tag_product_id
                     tableName: product_tag
-    - changeSet:
-          id: 1701957339276-13
-          author: Nemeth Botond
-          labels: foreignkey-constraint
-          objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-          changes:
-              - addForeignKeyConstraint:
-                    baseColumnNames: company_id
-                    baseTableName: product_group
-                    constraintName: FK_PRODUCT_GROUP_ON_COMPANY
-                    referencedColumnNames: id
-                    referencedTableName: company
     - changeSet:
           id: 1701957339276-14
           author: Nemeth Botond

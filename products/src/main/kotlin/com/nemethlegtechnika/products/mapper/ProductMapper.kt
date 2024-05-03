@@ -25,11 +25,13 @@ abstract class ProductMapper {
     @Mapping(target = "group", ignore = true)
     @Mapping(target = "id", ignore = true)
     abstract fun map(createProductDto: CreateProductDto): Product
+
     @Mapping(source = "company.name", target = "companyName")
     @Mapping(source = "group.name", target = "groupName")
     @Mapping(source = "product", target = "purchasePrice", qualifiedByName = ["purchasePrice"])
     @Mapping(source = "product", target = "sellPrice", qualifiedByName = ["sellPrice"])
     abstract fun map(product: Product): GetProductDto
+
     @Mapping(target = "company", ignore = true)
     @Mapping(target = "tags", ignore = true)
     @Mapping(target = "group", ignore = true)

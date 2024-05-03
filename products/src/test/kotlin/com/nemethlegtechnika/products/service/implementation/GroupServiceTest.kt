@@ -6,7 +6,6 @@ import com.nemethlegtechnika.products.db.model.ProductGroup
 import com.nemethlegtechnika.products.db.repository.GroupRepository
 import com.nemethlegtechnika.products.exception.EntityNotFoundException
 import com.nemethlegtechnika.products.optional
-import com.nemethlegtechnika.products.service.implementation.GroupServiceImpl
 import com.nemethlegtechnika.products.service.interfaces.ProductService
 import io.mockk.every
 import io.mockk.mockk
@@ -76,63 +75,6 @@ class GroupServiceTest {
     }
 
     @Test
-    fun `Test get default group by company's id successfully`() {
-        val company = Company().apply {
-            id = 1
-        }
-        val group = ProductGroup().apply {
-            id = 1
-            name = "Default"
-        }
-        every { groupRepository.findDefaultGroup(company.id!!) } returns group.optional
-
-        val result = groupService.getDefaultGroup(company)
-
-        assertEquals(group.name, result.name)
-    }
-
-    @Test
-    fun `Test get default group by company's name successfully`() {
-        val company = Company().apply {
-            name = "Company 1"
-        }
-        val group = ProductGroup().apply {
-            id = 1
-            name = "Default"
-        }
-        every { groupRepository.findDefaultGroup(company.name!!) } returns group.optional
-
-        val result = groupService.getDefaultGroup(company)
-
-        assertEquals(group.name, result.name)
-    }
-
-    @Test
-    fun `Test get default group with null id and null name throws exception`() {
-        val company = Company()
-
-        val exception = assertThrows<RuntimeException> {
-            groupService.getDefaultGroup(company)
-        }
-
-        assertEquals("[AdminConsole][Backend]: Company's id or name should not be null when searching for default group", exception.message)
-    }
-
-    @Test
-    fun `Test get default group not found`() {
-        val company = Company().apply {
-            name = "Company 1"
-        }
-        every { groupRepository.findDefaultGroup(company.name!!) } returns Optional.empty()
-        val analysisSlot = slot<ProductGroup>()
-        every { groupRepository.saveAndFlush(capture(analysisSlot)) } answers { analysisSlot.captured }
-
-        val result = groupService.getDefaultGroup(company)
-
-        assertEquals("Default", result.name)
-    }
-
-    @Test
     fun `Test create group successfully`() {
         val company = Company().apply {
             id = 1
@@ -157,7 +99,6 @@ class GroupServiceTest {
         )
         val group = ProductGroup().apply {
             name = "Group 1"
-            this.company = company
             this.products.addAll(products)
         }
 
@@ -200,9 +141,6 @@ class GroupServiceTest {
         )
         val group = ProductGroup().apply {
             name = "Group 1"
-            this.company = Company().apply {
-                name = "Company 2"
-            }
             this.products.addAll(products)
         }
 
@@ -212,7 +150,7 @@ class GroupServiceTest {
             groupService.create(group)
         }
 
-        assertEquals("[AdminConsole][Backend]: All product's company in group ${group.name} has to be ${group.company?.name}", exception.message)
+        assertEquals("[AdminConsole][Backend]: All product's company in group ${group.name} has to belong to the same company", exception.message)
     }
 
     @Test
@@ -242,7 +180,6 @@ class GroupServiceTest {
         )
         val group = ProductGroup().apply {
             name = "Group 1"
-            this.company = company
             this.products.addAll(products)
         }
 
@@ -252,7 +189,7 @@ class GroupServiceTest {
             groupService.create(group)
         }
 
-        assertEquals("[AdminConsole][Backend]: All product's company in group ${group.name} has to be ${group.company?.name}", exception.message)
+        assertEquals("[AdminConsole][Backend]: All product's company in group ${group.name} has to belong to the same company", exception.message)
     }
 
     @TestFactory
@@ -272,7 +209,6 @@ class GroupServiceTest {
                 name = "Group 1"
             }
             every { groupRepository.findById(newGroup.id!!) } returns oldGroup.optional
-            every { groupRepository.isDefaultGroup(newGroup.id!!) } returns false
 
             val analysisSlot = slot<ProductGroup>()
             every { groupRepository.saveAndFlush(capture(analysisSlot)) } answers { analysisSlot.captured }
@@ -297,22 +233,6 @@ class GroupServiceTest {
         }
 
         assertEquals("[AdminConsole][Backend]: No ProductGroup was found with id: ${group.id}", exception.message)
-    }
-
-    @Test
-    fun `Test update default group throws exception`() {
-        val group = ProductGroup().apply {
-            id = 1
-            name = "Group 1"
-        }
-        every { groupRepository.findById(group.id!!) } returns group.optional
-        every { groupRepository.isDefaultGroup(group.id!!) } returns true
-
-        val exception = assertThrows<RuntimeException> {
-            groupService.update(group)
-        }
-
-        assertEquals("[AdminConsole][Backend]: Default group with id: ${group.id} cannot be modified or deleted", exception.message)
     }
 
     @Test
@@ -370,7 +290,6 @@ class GroupServiceTest {
         }
         every { productService.get(product.id!!) } returns product
         every { groupRepository.findById(group.id!!) } returns group.optional
-        every { groupRepository.isDefaultGroup(group.id!!) } returns false
         every { productService.update(product) } returns product
         val analysisSlot = slot<ProductGroup>()
         every { groupRepository.saveAndFlush(capture(analysisSlot)) } answers { analysisSlot.captured }
@@ -403,28 +322,6 @@ class GroupServiceTest {
     }
 
     @Test
-    fun `Test remove product from default group throws exception`() {
-        val product = Product().apply {
-            id = 1
-            name = "Product 1"
-        }
-        val group = ProductGroup().apply {
-            id = 1
-            name = "Group 1"
-            products.add(product)
-        }
-        every { productService.get(product.id!!) } returns product
-        every { groupRepository.findById(group.id!!) } returns group.optional
-        every { groupRepository.isDefaultGroup(group.id!!) } returns true
-
-        val exception = assertThrows<RuntimeException> {
-            groupService.removeProduct(product.id!!, group.id!!)
-        }
-
-        assertEquals("[AdminConsole][Backend]: Default group with id: ${group.id} cannot be modified or deleted", exception.message)
-    }
-
-    @Test
     fun `Test exists group by name`() {
         val name = "Group 1"
         every { groupRepository.existsByName(name) } returns true
@@ -438,21 +335,5 @@ class GroupServiceTest {
     fun `Test exists group by null name`() {
         val result = groupService.exists(null)
         assertTrue(!result)
-    }
-
-    @Test
-    fun `Test delete default group throws exception`() {
-        val group = ProductGroup().apply {
-            id = 1
-            name = "Group 1"
-        }
-        every { groupRepository.findById(group.id!!) } returns group.optional
-        every { groupRepository.isDefaultGroup(group.id!!) } returns true
-
-        val exception = assertThrows<RuntimeException> {
-            groupService.delete(group.id!!)
-        }
-
-        assertEquals("[AdminConsole][Backend]: Default group with id: ${group.id} cannot be modified or deleted", exception.message)
     }
 }

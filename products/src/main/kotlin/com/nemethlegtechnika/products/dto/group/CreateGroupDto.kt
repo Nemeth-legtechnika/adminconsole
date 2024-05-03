@@ -9,6 +9,5 @@ import java.io.Serializable
  */
 data class CreateGroupDto @Default constructor(
     @field:NotBlank val name: String? = null,
-    val companyName: String? = null,
     val productIds: MutableList<Long>?
 ) : Serializable
