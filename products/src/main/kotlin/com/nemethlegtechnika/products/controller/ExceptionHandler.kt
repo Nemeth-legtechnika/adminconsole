@@ -4,6 +4,7 @@ import com.nemethlegtechnika.products.dto.exception.BindingErrorDto
 import com.nemethlegtechnika.products.dto.exception.ExceptionDto
 import com.nemethlegtechnika.products.dto.exception.ValidationExceptionDto
 import com.nemethlegtechnika.products.exception.BackendException
+import com.nemethlegtechnika.products.exception.ConstraintViolationException
 import com.nemethlegtechnika.products.exception.EntityNotFoundException
 import com.nemethlegtechnika.products.util.response
 import org.springframework.http.HttpStatus
@@ -43,6 +44,15 @@ class ExceptionHandler {
                     error.defaultMessage ?: "Unknown error",
                 )
             },
+            HttpStatus.BAD_REQUEST,
+        )
+        return exceptionDto.response
+    }
+
+    @ExceptionHandler(ConstraintViolationException::class)
+    fun constraintViolation(exception: ConstraintViolationException): ResponseEntity<ExceptionDto> {
+        val exceptionDto = ExceptionDto(
+            exception.constraintMessage,
             HttpStatus.BAD_REQUEST,
         )
         return exceptionDto.response
