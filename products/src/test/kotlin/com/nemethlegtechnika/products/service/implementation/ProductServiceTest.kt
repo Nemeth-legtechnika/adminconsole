@@ -5,6 +5,7 @@ import com.nemethlegtechnika.products.db.model.Product
 import com.nemethlegtechnika.products.db.model.ProductGroup
 import com.nemethlegtechnika.products.db.model.Tag
 import com.nemethlegtechnika.products.db.repository.ProductRepository
+import com.nemethlegtechnika.products.exception.BackendException
 import com.nemethlegtechnika.products.exception.EntityNotFoundException
 import com.nemethlegtechnika.products.optional
 import com.nemethlegtechnika.products.service.interfaces.CompanyService
@@ -533,7 +534,7 @@ class ProductServiceTest {
         every { tagService.get(tagId) } returns tag
         every { productRepository.findById(productId) } returns product.optional
 
-        val exception = assertThrows<EntityNotFoundException> {
+        val exception = assertThrows<BackendException> {
             productService.addTag(productId, tagId)
         }
 

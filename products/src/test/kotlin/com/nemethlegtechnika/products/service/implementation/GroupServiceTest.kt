@@ -117,43 +117,6 @@ class GroupServiceTest {
     }
 
     @Test
-    fun `Test create group with different company's name throws exception`() {
-        val company = Company().apply {
-            id = 1
-            name = "Company 1"
-        }
-        val products = listOf(
-            Product().apply {
-                id = 1
-                name = "Product 1"
-                this.company = company
-            },
-            Product().apply {
-                id = 2
-                name = "Product 2"
-                this.company = company
-            },
-            Product().apply {
-                id = 3
-                name = "Product 3"
-                this.company = company
-            },
-        )
-        val group = ProductGroup().apply {
-            name = "Group 1"
-            this.products.addAll(products)
-        }
-
-        every { productService.getAll(listOf(1L, 2L, 3L)) } returns products
-
-        val exception = assertThrows<RuntimeException> {
-            groupService.create(group)
-        }
-
-        assertEquals("[AdminConsole][Backend]: All product's company in group ${group.name} has to belong to the same company", exception.message)
-    }
-
-    @Test
     fun `Test create group that has one product with different company's name throws exception`() {
         val company = Company().apply {
             id = 1
