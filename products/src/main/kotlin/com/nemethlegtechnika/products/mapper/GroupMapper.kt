@@ -1,11 +1,11 @@
 package com.nemethlegtechnika.products.mapper
 
-import com.nemethlegtechnika.products.db.model.ProductGroup
+import com.nemethlegtechnika.products.model.ProductGroup
 import com.nemethlegtechnika.products.dto.group.CreateGroupDto
 import com.nemethlegtechnika.products.dto.group.GetGroupDto
 import com.nemethlegtechnika.products.dto.group.UpdateGroupDto
-import com.nemethlegtechnika.products.service.interfaces.CompanyService
-import com.nemethlegtechnika.products.service.interfaces.ProductService
+import com.nemethlegtechnika.products.feature.service.interfaces.CompanyService
+import com.nemethlegtechnika.products.feature.service.interfaces.ProductService
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 import org.mapstruct.MappingConstants

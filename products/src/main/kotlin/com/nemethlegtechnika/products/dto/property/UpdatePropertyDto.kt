@@ -1,13 +1,13 @@
 package com.nemethlegtechnika.products.dto.property
 
 import com.nemethlegtechnika.products.mapper.Default
-import jakarta.validation.constraints.NotBlank
+import com.nemethlegtechnika.products.feature.validation.NotEmptyOrNull
 import java.io.Serializable
 
 /**
  * DTO for {@link com.nemethlegtechnika.products.db.model.CustomProperty}
  */
 data class UpdatePropertyDto @Default constructor(
-    @field:NotBlank val name: String? = null,
-    @field:NotBlank val value: String? = null,
+    @field:NotEmptyOrNull val name: String? = null,
+    @field:NotEmptyOrNull val value: String? = null,
 ) : Serializable

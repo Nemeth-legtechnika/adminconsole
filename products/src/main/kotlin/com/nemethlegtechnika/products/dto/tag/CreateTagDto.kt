@@ -1,7 +1,7 @@
 package com.nemethlegtechnika.products.dto.tag
 
+import com.nemethlegtechnika.products.feature.constant.Constants.COLOR_REGEX
 import com.nemethlegtechnika.products.mapper.Default
-import com.nemethlegtechnika.products.service.constant.Constants.COLOR_REGEX
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
 import java.io.Serializable

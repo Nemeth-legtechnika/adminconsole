@@ -1,9 +1,9 @@
 package com.nemethlegtechnika.products.db
 
-import com.nemethlegtechnika.products.db.model.CustomProperty
-import com.nemethlegtechnika.products.db.model.Product
-import com.nemethlegtechnika.products.db.model.purchasePrice
-import com.nemethlegtechnika.products.db.model.sellPrice
+import com.nemethlegtechnika.products.model.CustomProperty
+import com.nemethlegtechnika.products.model.Product
+import com.nemethlegtechnika.products.model.purchasePrice
+import com.nemethlegtechnika.products.model.sellPrice
 import com.nemethlegtechnika.products.exception.BackendException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

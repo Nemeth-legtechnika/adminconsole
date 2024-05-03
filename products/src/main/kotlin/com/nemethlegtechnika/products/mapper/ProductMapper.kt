@@ -1,13 +1,13 @@
 package com.nemethlegtechnika.products.mapper
 
-import com.nemethlegtechnika.products.db.model.Product
-import com.nemethlegtechnika.products.db.model.purchasePrice
-import com.nemethlegtechnika.products.db.model.sellPrice
+import com.nemethlegtechnika.products.model.Product
+import com.nemethlegtechnika.products.model.purchasePrice
+import com.nemethlegtechnika.products.model.sellPrice
 import com.nemethlegtechnika.products.dto.product.CreateProductDto
 import com.nemethlegtechnika.products.dto.product.GetProductDto
 import com.nemethlegtechnika.products.dto.product.UpdateProductDto
-import com.nemethlegtechnika.products.service.interfaces.CompanyService
-import com.nemethlegtechnika.products.service.interfaces.PropertyService
+import com.nemethlegtechnika.products.feature.service.interfaces.CompanyService
+import com.nemethlegtechnika.products.feature.service.interfaces.PropertyService
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 import org.mapstruct.MappingConstants

@@ -1,8 +1,8 @@
 package com.nemethlegtechnika.products.config
 
-import com.nemethlegtechnika.products.db.model.CustomProperty
-import com.nemethlegtechnika.products.db.model.Type
-import com.nemethlegtechnika.products.db.repository.CustomPropertyRepository
+import com.nemethlegtechnika.products.model.CustomProperty
+import com.nemethlegtechnika.products.model.Type
+import com.nemethlegtechnika.products.feature.service.repository.CustomPropertyRepository
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Component
 
