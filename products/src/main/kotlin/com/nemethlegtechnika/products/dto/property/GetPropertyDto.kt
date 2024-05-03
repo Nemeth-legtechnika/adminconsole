@@ -1,6 +1,6 @@
 package com.nemethlegtechnika.products.dto.property
 
-import com.nemethlegtechnika.products.db.model.Type
+import com.nemethlegtechnika.products.model.Type
 import com.nemethlegtechnika.products.mapper.Default
 import java.io.Serializable
 import java.util.*

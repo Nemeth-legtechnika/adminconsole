@@ -1,6 +1,6 @@
 package com.nemethlegtechnika.products.exception
 
-import com.nemethlegtechnika.products.db.model.BaseEntity
+import com.nemethlegtechnika.products.model.BaseEntity
 
 open class BackendException(
     message: String

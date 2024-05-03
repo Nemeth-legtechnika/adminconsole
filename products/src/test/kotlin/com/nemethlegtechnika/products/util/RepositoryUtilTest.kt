@@ -1,6 +1,6 @@
 package com.nemethlegtechnika.products.util
 
-import com.nemethlegtechnika.products.db.model.BaseEntity
+import com.nemethlegtechnika.products.model.BaseEntity
 import com.nemethlegtechnika.products.exception.EntityNotFoundException
 import com.nemethlegtechnika.products.optional
 import io.mockk.InternalPlatformDsl.toStr

@@ -1,6 +1,6 @@
 package com.nemethlegtechnika.products.util
 
-import com.nemethlegtechnika.products.db.model.BaseEntity
+import com.nemethlegtechnika.products.model.BaseEntity
 import com.nemethlegtechnika.products.exception.BackendException
 import com.nemethlegtechnika.products.exception.EntityNotFoundException
 import org.springframework.data.jpa.repository.JpaRepository

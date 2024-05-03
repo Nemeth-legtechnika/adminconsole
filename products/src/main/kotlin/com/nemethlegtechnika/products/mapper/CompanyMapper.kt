@@ -1,6 +1,6 @@
 package com.nemethlegtechnika.products.mapper
 
-import com.nemethlegtechnika.products.db.model.Company
+import com.nemethlegtechnika.products.model.Company
 import com.nemethlegtechnika.products.dto.company.CreateCompanyDto
 import com.nemethlegtechnika.products.dto.company.GetCompanyDto
 import com.nemethlegtechnika.products.dto.company.GetCompanyProductDto

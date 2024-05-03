@@ -1,6 +1,6 @@
 package com.nemethlegtechnika.products.mapper
 
-import com.nemethlegtechnika.products.db.model.Tag
+import com.nemethlegtechnika.products.model.Tag
 import com.nemethlegtechnika.products.dto.tag.CreateTagDto
 import com.nemethlegtechnika.products.dto.tag.GetTagDto
 import com.nemethlegtechnika.products.dto.tag.UpdateTagDto

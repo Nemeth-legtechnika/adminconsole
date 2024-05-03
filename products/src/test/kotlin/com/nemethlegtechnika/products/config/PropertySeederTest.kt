@@ -1,7 +1,7 @@
 package com.nemethlegtechnika.products.config
 
-import com.nemethlegtechnika.products.db.model.CustomProperty
-import com.nemethlegtechnika.products.db.repository.CustomPropertyRepository
+import com.nemethlegtechnika.products.model.CustomProperty
+import com.nemethlegtechnika.products.feature.service.repository.CustomPropertyRepository
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
