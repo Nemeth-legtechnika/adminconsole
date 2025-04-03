@@ -36,12 +36,15 @@ jobs:
       - name: Run tests with coverage
         run: ./gradlew koverXmlReport
 
+      - name: Check Kover report location
+        run: find . -name "*.xml" | grep kover
+
       - name: Publish Test Results
         uses: dorny/test-reporter@v2
         if: success() || failure()
         with:
           name: JUnit Tests
-          path: '**/build/test-results/test/TEST-*.xml'
+          path: 'products/build/reports/kover/xml/report.xml'
           reporter: java-junit
           fail-on-error: false
 
