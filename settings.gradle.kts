@@ -4,7 +4,6 @@ pluginManagement {
 	val dependencyManagementVersion: String by settings
 	val antlrVersion: String by settings
 	val koverVersion: String by settings
-	val sonarqubeVersion: String by settings
 	repositories {
 		maven { url = uri("https://repo.spring.io/milestone") }
 		maven { url = uri("https://repo.spring.io/snapshot") }
@@ -19,7 +18,6 @@ pluginManagement {
 		id("org.jetbrains.kotlin.plugin.allopen") version kotlinVersion
 		id("antlr") version antlrVersion
 		id("org.jetbrains.kotlinx.kover") version koverVersion
-		id("org.sonarqube") version sonarqubeVersion
 	}
 }
 rootProject.name = "adminconsole"
