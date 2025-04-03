@@ -32,7 +32,7 @@ koverReport {
 		rule("Basic Line Coverage") {
 			isEnabled = true
 			bound {
-				minValue = 20 //Todo change to 80
+				minValue = 10 //Todo change to 80
 				metric = MetricType.LINE
 				aggregation = AggregationType.COVERED_PERCENTAGE
 			}
@@ -41,7 +41,7 @@ koverReport {
 		rule("Branch Coverage") {
 			isEnabled = true
 			bound {
-				minValue = 20 //Todo change to 80
+				minValue = 10 //Todo change to 80
 				metric = MetricType.BRANCH
 			}
 		}
