@@ -10,6 +10,8 @@ permissions:
   contents: read
   actions: read
   checks: write
+  issues: write
+  pull-requests: write
 
 jobs:
   build:
@@ -51,7 +53,7 @@ jobs:
           name: test-results
           path: products/build/reports/tests
 
-      - name: JaCoCo Code Coverage Report
+      - name: Code Coverage Report
         uses: madrapps/jacoco-report@v1.7.1
         with:
           paths: ./products/build/reports/kover/report.xml
@@ -60,11 +62,3 @@ jobs:
           min-coverage-changed-files: 15
           update-comment: 'true'
           title: 'Code Coverage'
-
-      - name: Add Coverage PR Comment
-        uses: marocchino/sticky-pull-request-comment@v2
-        if: github.event_name == 'pull_request'
-        with:
-          header: code-coverage
-          recreate: true
-          path: code-coverage-results.md
