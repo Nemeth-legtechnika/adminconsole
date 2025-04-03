@@ -12,13 +12,13 @@ interface Validator<T> {
         block(root, query, criteriaBuilder)
     }
 
-    fun should(validation: Boolean, action: () -> Exception) {
+    fun verify(validation: Boolean, action: () -> Exception) {
         if (validation) {
             throw action()
         }
     }
 
-    fun shouldNot(validation: Boolean, action: () -> Exception) {
+    fun verifyNot(validation: Boolean, action: () -> Exception) {
         if (!validation) {
             throw action()
         }

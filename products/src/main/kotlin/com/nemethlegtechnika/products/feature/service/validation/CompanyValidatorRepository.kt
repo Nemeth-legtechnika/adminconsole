@@ -3,6 +3,7 @@ package com.nemethlegtechnika.products.feature.service.validation
 import com.nemethlegtechnika.products.exception.ConstraintViolationException
 import com.nemethlegtechnika.products.feature.service.repository.CompanyRepository
 import com.nemethlegtechnika.products.model.Company
+import com.nemethlegtechnika.products.model.Product_.company
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 
@@ -11,8 +12,8 @@ class CompanyValidatorRepository(
     @Qualifier("companyRepository") private val delegate: CompanyRepository,
 ): CompanyRepository by delegate, Validator<Company> {
 
-    override fun validate(company: Company) {
-        should(delegate.existsByName(company.name ?: "")) { ConstraintViolationException("Company name: ${company.name} already exists") }
+    override fun validate(entity: Company) {
+        verify(delegate.existsByName(entity.name ?: "")) { ConstraintViolationException("Company name: ${company.name} already exists") }
     }
 
     override fun <S : Company> saveAndFlush(entity: S): S {
