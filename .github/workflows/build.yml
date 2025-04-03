@@ -51,17 +51,15 @@ jobs:
           name: test-results
           path: products/build/reports/tests
 
-      - name: Code Coverage Report
-        uses: irongut/CodeCoverageSummary@v1.3.0
+      - name: JaCoCo Code Coverage Report
+        uses: madrapps/jacoco-report@v1.7.1
         with:
-          filename: adminconsole/products/build/reports/kover/report.xml
-          badge: true
-          format: markdown
-          hide_branch_rate: false
-          hide_complexity: true
-          indicators: true
-          output: both
-          thresholds: '10 15'
+          paths: ./products/build/reports/kover/report.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 10
+          min-coverage-changed-files: 15
+          update-comment: 'true'
+          title: 'Code Coverage'
 
       - name: Add Coverage PR Comment
         uses: marocchino/sticky-pull-request-comment@v2
