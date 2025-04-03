@@ -41,7 +41,7 @@ jobs:
         if: success() || failure()
         with:
           name: JUnit Tests
-          path: '**products/build/test-results/test/TEST-*.xml'
+          path: '**/build/test-results/test/TEST-*.xml'
           reporter: java-junit
           fail-on-error: false
 
