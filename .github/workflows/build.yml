@@ -47,9 +47,6 @@ jobs:
     - name: Generate Kover report
       run: ./gradlew koverXmlReport
 
-    - name: List report files
-      run: ls -la build/reports/kover/
-
     - name: Analyze
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
