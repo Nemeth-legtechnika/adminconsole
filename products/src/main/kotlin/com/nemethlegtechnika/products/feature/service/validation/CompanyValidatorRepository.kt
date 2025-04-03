@@ -34,6 +34,4 @@ class CompanyValidatorRepository(
         entities.forEach { validate(it) }
         return delegate.saveAll(entities)
     }
-
-
 }
