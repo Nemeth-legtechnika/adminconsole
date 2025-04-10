@@ -37,3 +37,6 @@ out/
 
 ### ENV file ###
 *.env
+
+### Keycloak Realm ###
+docker/keycloak/realms/
