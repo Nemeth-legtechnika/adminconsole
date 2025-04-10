@@ -26,8 +26,13 @@ spring:
   sql:
     init:
       mode: never
-# Todo change it to production values
-okta:
-  oauth2:
-    issuer: ${AUTH0_ISSUER_TEST}
-    audience: ${AUTH0_AUDIENCE_TEST}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${DEV_KEYCLOAK_ISSUER_URL}
+
+api:
+  key:
+    value: ${API_KEY}
+    header: X-API-KEY
