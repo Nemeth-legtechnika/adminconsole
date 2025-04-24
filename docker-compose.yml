@@ -12,6 +12,9 @@ services:
       DOCKER_KEYCLOAK_ISSUER_URL: ${DOCKER_KEYCLOAK_ISSUER_URL}
     ports:
       - "8080:8080"
+    depends_on:
+      - postgres
+      - keycloak
 
   postgres:
     image: postgres:latest
@@ -45,8 +48,8 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
     ports:
       - "8181:8080"
-#    volumes:
-#      - ./docker/keycloak/realms/:/opt/keycloak/data/import/
+    volumes:
+      - ./docker/keycloak/realms/:/opt/keycloak/data/import/
     depends_on:
       - postgres
 
