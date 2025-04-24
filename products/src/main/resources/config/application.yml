@@ -30,7 +30,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${DEV_KEYCLOAK_ISSUER_URL}
+          jwk-set-uri: ${DEV_JWK_SET_URI}
 
 api:
   key:
