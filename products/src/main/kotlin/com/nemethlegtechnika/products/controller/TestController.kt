@@ -1,5 +1,6 @@
 package com.nemethlegtechnika.products.controller
 
+import com.nemethlegtechnika.products.dto.user.UserDto
 import com.nemethlegtechnika.products.dto.user.UserInfo
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -17,7 +18,12 @@ class TestController {
     }
 
     @GetMapping("/me")
-    fun me(@AuthenticationPrincipal userInfo: UserInfo): ResponseEntity<String> {
-        return ResponseEntity.ok("Logged in user: ${userInfo.username}, email: ${userInfo.email}, roles: ${userInfo.roles}")
+    fun me(@AuthenticationPrincipal userInfo: UserInfo): ResponseEntity<UserDto> {
+        val response = UserDto(
+            username = userInfo.username,
+            email = userInfo.email ?: "",
+            roles = userInfo.roles
+        )
+        return ResponseEntity.ok(response)
     }
 }
