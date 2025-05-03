@@ -32,7 +32,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${DOCKER_KEYCLOAK_ISSUER_URL}
+          jwk-set-uri: ${DOCKER_JWK_SET_URI}
   logging:
     level:
       root: trace

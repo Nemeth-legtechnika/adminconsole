@@ -32,7 +32,7 @@ class SecurityConfig {
         return Converter { jwt ->
             val email = jwt.getClaimAsString("email")
             val username = jwt.getClaimAsString("preferred_username")
-            val roles = jwt.getClaimAsMap("realm_access")?.get("roles") as? List<String> ?: emptyList()
+            val roles = (jwt.getClaimAsMap("realm_access")?.get("roles") as? List<*>)?.filterIsInstance<String>() ?: emptyList()
 
             val userInfo = UserInfo(
                 username = username,
