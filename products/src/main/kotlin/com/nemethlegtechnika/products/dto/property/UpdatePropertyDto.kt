@@ -1,7 +1,7 @@
 package com.nemethlegtechnika.products.dto.property
 
+import com.nemethlegtechnika.common.validation.NotEmptyOrNull
 import com.nemethlegtechnika.products.mapper.Default
-import com.nemethlegtechnika.products.feature.validation.NotEmptyOrNull
 import java.io.Serializable
 
 /**

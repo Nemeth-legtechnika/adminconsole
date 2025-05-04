@@ -1,10 +1,10 @@
 package com.nemethlegtechnika.products.db
 
+import com.nemethlegtechnika.common.exception.BackendException
 import com.nemethlegtechnika.products.model.CustomProperty
 import com.nemethlegtechnika.products.model.Product
 import com.nemethlegtechnika.products.model.purchasePrice
 import com.nemethlegtechnika.products.model.sellPrice
-import com.nemethlegtechnika.products.exception.BackendException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows

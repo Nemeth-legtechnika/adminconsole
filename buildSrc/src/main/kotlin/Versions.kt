@@ -11,5 +11,6 @@ object Versions {
     const val openapi = "2.3.0"
     const val kotlinLogger = "5.1.0"
     const val antlr = "4.10.1"
-    const val okta = "3.0.5"
+    const val kediatr = "3.1.1"
+
 }

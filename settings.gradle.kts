@@ -1,2 +1,6 @@
 rootProject.name = "adminconsole"
-include("products")
+include(
+    "common",
+    "products",
+    "orders",
+)

@@ -1,0 +1,17 @@
+server:
+  port: 8081
+
+spring:
+  config:
+    activate:
+      on-profile: docker
+  banner:
+    location: "classpath:/banner/banner.txt"
+  data:
+    mongodb:
+      uri: mongodb://mongodb:27017/orders
+
+api:
+  key:
+    value: ${API_KEY}
+    header: X-API-KEY

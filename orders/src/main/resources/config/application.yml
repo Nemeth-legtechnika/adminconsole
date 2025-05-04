@@ -1,0 +1,14 @@
+server:
+  port: 8081
+
+spring:
+  banner:
+    location: "classpath:/banner/banner.txt"
+  data:
+    mongodb:
+      uri: ${DEV_MONGODB_URL}
+
+api:
+  key:
+    value: ${API_KEY}
+    header: X-API-KEY

@@ -1,6 +1,6 @@
 package com.nemethlegtechnika.products.model
 
-import com.nemethlegtechnika.products.exception.BackendException
+import com.nemethlegtechnika.common.exception.BackendException
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
