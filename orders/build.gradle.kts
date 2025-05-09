@@ -19,8 +19,6 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
-    implementation("com.trendyol:kediatr-spring-boot-3x-starter:${Versions.kediatr}")
-    implementation("com.trendyol:kediatr-core:${Versions.kediatr}")
     implementation("io.github.oshai:kotlin-logging-jvm:${Versions.kotlinLogger}")
     implementation("me.paulschwarz:spring-dotenv:${Versions.dotenv}")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
@@ -31,4 +29,10 @@ dependencies {
     testImplementation("io.mockk:mockk:${Versions.mockk}")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${Versions.springCloud}")
+    }
 }

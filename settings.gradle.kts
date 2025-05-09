@@ -3,4 +3,5 @@ include(
     "common",
     "products",
     "orders",
+    "api-gateway",
 )

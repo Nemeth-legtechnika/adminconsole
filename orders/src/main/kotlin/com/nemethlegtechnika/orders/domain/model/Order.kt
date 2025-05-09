@@ -26,6 +26,7 @@ data class Product(
     val name: String,
     val number: String,
     val description: String,
+    val listPrice: Long,
     val purchasePrice: Long,
     val sellPrice: Long,
     val quantity: Int,

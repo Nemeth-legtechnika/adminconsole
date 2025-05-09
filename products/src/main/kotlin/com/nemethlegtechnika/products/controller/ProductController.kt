@@ -3,13 +3,13 @@ package com.nemethlegtechnika.products.controller
 import com.nemethlegtechnika.products.dto.product.CreateProductDto
 import com.nemethlegtechnika.products.dto.product.GetProductDto
 import com.nemethlegtechnika.products.dto.product.UpdateProductDto
-import com.nemethlegtechnika.products.mapper.ProductMapper
 import com.nemethlegtechnika.products.feature.service.interfaces.ProductService
 import com.nemethlegtechnika.products.feature.service.response.ResponseResolver
 import com.nemethlegtechnika.products.feature.service.response.list
 import com.nemethlegtechnika.products.feature.service.response.read
 import com.nemethlegtechnika.products.feature.service.response.single
 import com.nemethlegtechnika.products.feature.service.response.write
+import com.nemethlegtechnika.products.mapper.ProductMapper
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -29,8 +30,8 @@ class ProductController(
     private val resolver: ResponseResolver,
 ) : BaseController() {
 
-    @GetMapping()
-    fun getAll() = list(productMapper::map) { service.getAll() } read resolver
+    @GetMapping
+    fun getAll(@RequestParam(defaultValue = "") ids: List<Long>) = list(productMapper::map) { service.getAll(ids) } read resolver
 
     @GetMapping("/{id}")
     fun get(@PathVariable id: Long) = single(productMapper::map) { service.get(id) } read resolver

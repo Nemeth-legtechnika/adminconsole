@@ -13,7 +13,7 @@ class SecurityConfig {
     fun securityFilterChain(httpSecurity: HttpSecurity): SecurityFilterChain {
         return httpSecurity
             .authorizeHttpRequests { authorize ->
-                authorize.anyRequest().hasRole("admin")
+                authorize.anyRequest().hasAnyRole("admin", "service-account")
             }
             .oauth2ResourceServer { oauth2 ->
                 oauth2.jwt { jwt ->

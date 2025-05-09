@@ -1,7 +1,14 @@
 package com.nemethlegtechnika.orders.feature.port
 
-import com.nemethlegtechnika.orders.domain.dto.OrderDto
+import com.nemethlegtechnika.orders.domain.command.ProductQuantity
+import com.nemethlegtechnika.orders.domain.model.Order
+import com.nemethlegtechnika.orders.domain.model.Owner
+
+data class CreateOrder (
+    val owner: Owner,
+    val products: List<ProductQuantity>,
+)
 
 interface CreateOrderPort {
-    fun createOrder(order: OrderDto): OrderDto
+    suspend fun createOrder(order: CreateOrder): Order
 }

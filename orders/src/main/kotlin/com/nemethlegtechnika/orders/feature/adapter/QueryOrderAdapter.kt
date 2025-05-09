@@ -21,4 +21,8 @@ class QueryOrderAdapter(
     override suspend fun getByIdAndOwner(id: String, email: String): Order = withContext(Dispatchers.IO) {
         orderRepository.findByIdAndOwnerEmail(id, email) ?: throw EntityNotFoundException("Order with id: $id not found for owner with email: $email")
     }
+
+    override suspend fun getById(id: String): Order = withContext(Dispatchers.IO) {
+        orderRepository.findById(id).orElseThrow{ EntityNotFoundException("Order with id: $id not found") }
+    }
 }

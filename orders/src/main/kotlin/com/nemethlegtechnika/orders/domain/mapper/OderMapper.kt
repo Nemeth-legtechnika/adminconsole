@@ -36,16 +36,16 @@ fun OrderDto.toOrder(): Order {
 fun Owner.toOwnerDto(): OwnerDto {
     return OwnerDto(
         email = this.email,
-        firstName = this.firstName,
-        lastName = this.lastName
+        fullName = this.fullName,
+        username = this.username
     )
 }
 
 fun OwnerDto.toOwner(): Owner {
     return Owner(
         email = this.email,
-        firstName = this.firstName,
-        lastName = this.lastName
+        fullName = this.fullName,
+        username = this.username
     )
 }
 
@@ -55,6 +55,7 @@ fun Product.toProductDto(): ProductDto {
         name = this.name,
         number = this.number,
         description = this.description,
+        listPrice = this.listPrice,
         purchasePrice = this.purchasePrice,
         sellPrice = this.sellPrice,
         quantity = this.quantity,
@@ -69,6 +70,7 @@ fun ProductDto.toProduct(): Product {
         name = this.name,
         number = this.number,
         description = this.description,
+        listPrice = this.listPrice,
         purchasePrice = this.purchasePrice,
         sellPrice = this.sellPrice,
         quantity = this.quantity,

@@ -31,7 +31,9 @@ class ProductServiceImpl(
     override fun getAll(): List<Product> = productRepository.findAll()
 
     @Transactional(isolation = Isolation.READ_COMMITTED, readOnly = true)
-    override fun getAll(productIds: List<Long>): List<Product> = productRepository.findAllByIdIn(productIds)
+    override fun getAll(productIds: List<Long>): List<Product> =
+        if (productIds.isEmpty()) getAll()
+        else productRepository.findAllByIdIn(productIds)
 
     @Transactional(isolation = Isolation.READ_COMMITTED, readOnly = true)
     override fun get(id: Long) = productRepository.findByIdOrThrow(id)

@@ -8,4 +8,6 @@ interface QueryOrderPort {
     suspend fun getAllByOwner(email: String): List<Order>
 
     suspend fun getByIdAndOwner(id: String, email: String): Order
+
+    suspend fun getById(id: String): Order
 }

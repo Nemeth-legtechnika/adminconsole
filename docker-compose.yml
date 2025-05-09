@@ -1,14 +1,32 @@
 version: '3.9'
 
 services:
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DOCKER_PRODUCT_SERVICE_URL: ${DOCKER_PRODUCT_SERVICE_URL}
+      DOCKER_ORDER_SERVICE_URL: ${DOCKER_ORDER_SERVICE_URL}
+    ports:
+      - "9000:9000"
+
   order-service:
     build: ./orders
     container_name: order-service
     environment:
       SPRING_PROFILES_ACTIVE: docker
+      DOCKER_MONGODB_URL: ${DOCKER_MONGODB_URL}
+      DOCKER_PRODUCT_SERVICE_URL: ${DOCKER_PRODUCT_SERVICE_URL}
+      DOCKER_KEYCLOAK_BASE_URL: ${DOCKER_KEYCLOAK_BASE_URL}
+      KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+      KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
+      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
+      DOCKER_JWK_SET_URI: ${DOCKER_JWK_SET_URI}
     ports:
       - "8081:8081"
     depends_on:
+      - api-gateway
       - mongodb
       - keycloak
 
@@ -24,6 +42,7 @@ services:
     ports:
       - "8080:8080"
     depends_on:
+      - api-gateway
       - postgres
       - keycloak
 

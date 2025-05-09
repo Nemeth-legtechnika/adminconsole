@@ -8,18 +8,28 @@ import org.springframework.security.oauth2.jwt.Jwt
 
 fun userInfoAuthenticationConverter(): Converter<Jwt, AbstractAuthenticationToken> {
     return Converter { jwt ->
-        val email = jwt.getClaimAsString("email")
-        val username = jwt.getClaimAsString("preferred_username")
-        val fullName = jwt.getClaimAsString("name")
         val roles = (jwt.getClaimAsMap("realm_access")?.get("roles") as? List<*>)?.filterIsInstance<String>() ?: emptyList()
 
-        val userInfo = UserInfo(
-            username = username,
-            email = email,
+        val userInfo = ifServiceAccount(roles) {
+            ServiceUserInfo(
+                roles = roles,
+            )
+        } ?: UserInfo(
+            username = jwt.getClaimAsString("preferred_username"),
+            email = jwt.getClaimAsString("email"),
             roles = roles,
-            fullName = fullName,
+            fullName = jwt.getClaimAsString("name"),
         )
 
         UsernamePasswordAuthenticationToken(userInfo, jwt.tokenValue, roles.map { SimpleGrantedAuthority("ROLE_$it") })
     }
+}
+
+private fun isServiceAccount(roles: List<String>): Boolean = roles.any { it == "service-account" }
+
+private fun <T> ifServiceAccount(roles: List<String>, block: () -> T): T? {
+    if (isServiceAccount(roles)) {
+        return block()
+    }
+    return null
 }

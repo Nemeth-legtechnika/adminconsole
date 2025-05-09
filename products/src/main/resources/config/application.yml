@@ -31,8 +31,3 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: ${DEV_JWK_SET_URI}
-
-api:
-  key:
-    value: ${API_KEY}
-    header: X-API-KEY

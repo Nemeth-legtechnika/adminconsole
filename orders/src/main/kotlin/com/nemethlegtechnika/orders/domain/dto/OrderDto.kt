@@ -13,8 +13,8 @@ data class OrderDto(
 
 data class OwnerDto(
     val email: String,
-    val firstName: String,
-    val lastName: String,
+    val fullName: String,
+    val username: String,
 )
 
 data class ProductDto(
@@ -22,6 +22,7 @@ data class ProductDto(
     val name: String,
     val number: String,
     val description: String,
+    val listPrice: Long,
     val purchasePrice: Long,
     val sellPrice: Long,
     val quantity: Int,

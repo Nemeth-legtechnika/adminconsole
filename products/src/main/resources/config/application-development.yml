@@ -39,7 +39,3 @@ logging:
     org:
       springframework:
         security: TRACE
-api:
-  key:
-    value: ${API_KEY}
-    header: X-API-KEY
