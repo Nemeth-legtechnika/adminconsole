@@ -1,6 +1,5 @@
 package com.nemethlegtechnika.orders.feature.controller
 
-import com.nemethlegtechnika.common.security.UserInfo
 import com.nemethlegtechnika.orders.domain.command.CreateOrder
 import com.nemethlegtechnika.orders.domain.command.UpdateOrder
 import com.nemethlegtechnika.orders.domain.dto.OrderDto
@@ -11,7 +10,6 @@ import com.nemethlegtechnika.orders.feature.usecase.QueryOrderUseCase
 import com.nemethlegtechnika.orders.util.entryPoint
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
-import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -27,11 +25,6 @@ class OrderController(
     private val queryOrderUseCase: QueryOrderUseCase,
     private val modifyOrderUseCase: ModifyOrderUseCase
 ) {
-
-    @GetMapping("/test")
-    fun test(@AuthenticationPrincipal userInfo: UserInfo): ResponseEntity<String> {
-        return ResponseEntity.ok("username: ${userInfo.username}, roles: ${userInfo.roles}")
-    }
 
     @GetMapping
     fun getAll(): ResponseEntity<List<OrderDto>> = entryPoint {

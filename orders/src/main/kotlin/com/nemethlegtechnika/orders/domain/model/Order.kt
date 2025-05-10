@@ -49,8 +49,8 @@ data class Order (
     val status: OrderStatus = OrderStatus.IN_PROGRESS,
 
     @CreatedDate
-    val createdAt: Instant? = null,
+    var createdAt: Instant? = null,
 
     @LastModifiedDate
-    val updatedAt: Instant? = null,
+    var updatedAt: Instant? = null,
 )

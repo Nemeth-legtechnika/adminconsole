@@ -10,5 +10,7 @@ import org.springframework.stereotype.Component
 class DeleteOrderAdapter(
     private val orderRepository: OrderRepository,
 ): DeleteOrderPort {
-    override suspend fun deleteOrder(id: String) = withContext(Dispatchers.IO) { orderRepository.deleteById(id) }
+    override suspend fun deleteOrder(id: String) = withContext(Dispatchers.IO) {
+        orderRepository.deleteById(id)
+    }
 }

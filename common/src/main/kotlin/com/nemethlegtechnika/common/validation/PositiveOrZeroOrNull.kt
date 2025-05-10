@@ -16,9 +16,9 @@ annotation class PositiveOrZeroOrNull(
     val payload: Array<KClass<out Any>> = []
 )
 
-class PositiveOrZeroOrNullValidator : ConstraintValidator<PositiveOrZeroOrNull, Double> {
+class PositiveOrZeroOrNullValidator : ConstraintValidator<PositiveOrZeroOrNull, Number> {
 
-    override fun isValid(value: Double?, context: ConstraintValidatorContext) = value?.let { it >= 0.0 } ?: true
+    override fun isValid(value: Number?, context: ConstraintValidatorContext) = value?.toDouble()?.let { it >= 0.0 } ?: true
 
 }
 
