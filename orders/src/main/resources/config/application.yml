@@ -1,0 +1,29 @@
+server:
+  port: 8081
+
+spring:
+  banner:
+    location: "classpath:/banner/banner.txt"
+  data:
+    mongodb:
+      uri: ${DEV_MONGODB_URL}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${DEV_JWK_SET_URI}
+
+service:
+  product:
+    url: ${DEV_PRODUCT_SERVICE_URL}
+  keycloak:
+    url: ${DEV_KEYCLOAK_BASE_URL}
+    realm: ${KEYCLOAK_REALM}
+    client-id: ${KEYCLOAK_CLIENT_ID}
+    client-secret: ${KEYCLOAK_CLIENT_SECRET}
+
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE

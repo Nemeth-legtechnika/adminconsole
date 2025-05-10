@@ -1,10 +1,10 @@
 package com.nemethlegtechnika.products.feature.service.implementation
 
-import com.nemethlegtechnika.products.model.ProductGroup
-import com.nemethlegtechnika.products.feature.service.repository.GroupRepository
-import com.nemethlegtechnika.products.exception.BackendException
+import com.nemethlegtechnika.common.exception.BackendException
 import com.nemethlegtechnika.products.feature.service.interfaces.GroupService
 import com.nemethlegtechnika.products.feature.service.interfaces.ProductService
+import com.nemethlegtechnika.products.feature.service.repository.GroupRepository
+import com.nemethlegtechnika.products.model.ProductGroup
 import com.nemethlegtechnika.products.util.findByIdOrThrow
 import com.nemethlegtechnika.products.util.update
 import io.github.oshai.kotlinlogging.KotlinLogging

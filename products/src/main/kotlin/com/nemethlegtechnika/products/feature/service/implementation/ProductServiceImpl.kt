@@ -1,13 +1,13 @@
 package com.nemethlegtechnika.products.feature.service.implementation
 
-import com.nemethlegtechnika.products.model.Product
-import com.nemethlegtechnika.products.feature.service.repository.ProductRepository
-import com.nemethlegtechnika.products.exception.BackendException
-import com.nemethlegtechnika.products.exception.EntityNotFoundException
+import com.nemethlegtechnika.common.exception.BackendException
+import com.nemethlegtechnika.common.exception.EntityNotFoundException
 import com.nemethlegtechnika.products.feature.service.interfaces.CompanyService
 import com.nemethlegtechnika.products.feature.service.interfaces.GroupService
 import com.nemethlegtechnika.products.feature.service.interfaces.ProductService
 import com.nemethlegtechnika.products.feature.service.interfaces.TagService
+import com.nemethlegtechnika.products.feature.service.repository.ProductRepository
+import com.nemethlegtechnika.products.model.Product
 import com.nemethlegtechnika.products.util.findByIdOrThrow
 import com.nemethlegtechnika.products.util.update
 import org.springframework.context.annotation.Lazy
@@ -31,7 +31,9 @@ class ProductServiceImpl(
     override fun getAll(): List<Product> = productRepository.findAll()
 
     @Transactional(isolation = Isolation.READ_COMMITTED, readOnly = true)
-    override fun getAll(productIds: List<Long>): List<Product> = productRepository.findAllByIdIn(productIds)
+    override fun getAll(productIds: List<Long>): List<Product> =
+        if (productIds.isEmpty()) getAll()
+        else productRepository.findAllByIdIn(productIds)
 
     @Transactional(isolation = Isolation.READ_COMMITTED, readOnly = true)
     override fun get(id: Long) = productRepository.findByIdOrThrow(id)

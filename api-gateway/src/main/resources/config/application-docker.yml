@@ -1,0 +1,16 @@
+server:
+  port: 9000
+
+spring:
+  config:
+    activate:
+      on-profile: docker
+  banner:
+    location: "classpath:/banner/banner.txt"
+
+service:
+  product:
+    url: ${DOCKER_PRODUCT_SERVICE_URL}
+  order:
+    url: ${DOCKER_ORDER_SERVICE_URL}
+

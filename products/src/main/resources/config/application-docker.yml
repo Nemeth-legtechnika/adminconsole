@@ -33,11 +33,3 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: ${DOCKER_JWK_SET_URI}
-  logging:
-    level:
-      root: trace
-
-api:
-  key:
-    value: ${API_KEY}
-    header: X-API-KEY

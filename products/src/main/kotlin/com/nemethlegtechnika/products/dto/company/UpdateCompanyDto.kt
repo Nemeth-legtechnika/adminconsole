@@ -1,8 +1,8 @@
 package com.nemethlegtechnika.products.dto.company
 
+import com.nemethlegtechnika.common.validation.NotEmptyOrNull
+import com.nemethlegtechnika.common.validation.PositiveOrZeroOrNull
 import com.nemethlegtechnika.products.mapper.Default
-import com.nemethlegtechnika.products.feature.validation.NotEmptyOrNull
-import com.nemethlegtechnika.products.feature.validation.PositiveOrZeroOrNull
 import jakarta.validation.constraints.NotNull
 import java.io.Serializable
 

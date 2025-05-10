@@ -1,10 +1,10 @@
 package com.nemethlegtechnika.products.feature.service.implementation
 
-import com.nemethlegtechnika.products.model.CustomProperty
-import com.nemethlegtechnika.products.feature.service.repository.CustomPropertyRepository
-import com.nemethlegtechnika.products.exception.BackendException
+import com.nemethlegtechnika.common.exception.BackendException
 import com.nemethlegtechnika.products.feature.constant.Properties
 import com.nemethlegtechnika.products.feature.service.interfaces.PropertyService
+import com.nemethlegtechnika.products.feature.service.repository.CustomPropertyRepository
+import com.nemethlegtechnika.products.model.CustomProperty
 import com.nemethlegtechnika.products.util.throwWhenNotFound
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Isolation

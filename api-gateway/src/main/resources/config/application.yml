@@ -1,0 +1,13 @@
+server:
+  port: 9000
+
+spring:
+  banner:
+    location: "classpath:/banner/banner.txt"
+
+service:
+  product:
+    url: ${DEV_PRODUCT_SERVICE_URL}
+  order:
+    url: ${DEV_ORDER_SERVICE_URL}
+

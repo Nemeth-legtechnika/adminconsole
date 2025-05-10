@@ -1,8 +1,8 @@
 package com.nemethlegtechnika.products.dto.tag
 
-import com.nemethlegtechnika.products.mapper.Default
+import com.nemethlegtechnika.common.validation.NotEmptyOrNull
 import com.nemethlegtechnika.products.feature.constant.Constants
-import com.nemethlegtechnika.products.feature.validation.NotEmptyOrNull
+import com.nemethlegtechnika.products.mapper.Default
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern
 import java.io.Serializable
