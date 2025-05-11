@@ -11,6 +11,8 @@ import com.nemethlegtechnika.orders.domain.model.Order
 import com.nemethlegtechnika.orders.domain.model.Owner
 import com.nemethlegtechnika.orders.domain.model.Product
 import com.nemethlegtechnika.orders.domain.model.Tag
+import com.nemethlegtechnika.orders.feature.usecase.NotificationOrder
+import com.nemethlegtechnika.orders.feature.usecase.NotificationProduct
 import com.nemethlegtechnika.orders.util.valueOfOrThrow
 
 fun Order.toOrderDto(): OrderDto {
@@ -102,5 +104,21 @@ fun TagDto.toTag(): Tag {
     return Tag(
         name = this.name,
         color = this.color
+    )
+}
+
+fun Order.toNotification(): NotificationOrder {
+    return NotificationOrder(
+        owner = this.owner ?: throw BackendException("Owner is null"),
+        products = this.products.map { it.toNotification() }
+    )
+}
+
+fun Product.toNotification(): NotificationProduct {
+    return NotificationProduct(
+        name = this.name,
+        description = this.description,
+        price = this.sellPrice,
+        quantity = this.quantity
     )
 }

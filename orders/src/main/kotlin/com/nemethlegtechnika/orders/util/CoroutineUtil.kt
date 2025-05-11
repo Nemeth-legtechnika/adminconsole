@@ -7,6 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.ThreadContextElement
 import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -53,4 +54,17 @@ fun <T> entryPoint(
     block: suspend CoroutineScope.() -> T
 ): T = runBlocking {
     withContext(dispatcher + SecurityCoroutineContext(), block = block)
+}
+
+suspend fun launch(
+    block: suspend CoroutineScope.() -> Unit
+): Unit = coroutineScope { launch(block = block) }
+
+suspend inline fun <T> T.alsoLaunch(crossinline block: suspend (T) -> Unit): T {
+    coroutineScope {
+        launch {
+            block(this@alsoLaunch)
+        }
+    }
+    return this
 }
