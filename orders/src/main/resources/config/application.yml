@@ -12,6 +12,11 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: ${DEV_JWK_SET_URI}
+  mail:
+    host: ${EMAIL_HOST}
+    port: ${EMAIL_PORT}
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
 
 service:
   product:
